@@ -8,10 +8,6 @@ export const RouterMain = ()=>
 {
   const {validateuser} =  useValidatelogin();
   const [validatelogin,setvalidatelogin] =  useState(validateuser());
-  
-  
-
-  
 
   return( 
     <BrowserRouter>
