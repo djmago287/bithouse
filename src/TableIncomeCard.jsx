@@ -1,5 +1,4 @@
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { useEffect } from "react";
 import styled from "styled-components";
 import EditIcon  from "@mui/icons-material/Edit";
 const CardTable = styled.section`
@@ -16,9 +15,7 @@ export const TableIncomeCard = ({Sflex, Data})=>{
     const formatdate = tmpdate.getFullYear()+"-"+(tmpdate.getMonth()+1)+"-"+tmpdate.getDate();
     return formatdate;
   }
-  useEffect(()=>{
-    console.log(Data);
-  },[Data]);
+
   return(
     <CardTable Sflex={Sflex}>
       <TableContainer sx={{maxHeight:150}}>

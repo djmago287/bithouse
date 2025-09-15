@@ -1,7 +1,10 @@
-import express, {json} from 'express'
+ import express, {json} from 'express'
 import mysql from 'mysql';
-import cors from  "cors";
+import cors from  'cors';
 import { accountforpayRouter } from './cuentasporpagar/infrastructure/routeraccountsforpay.js';
+import { backupdbmysqlRouter } from './backupdb/infrastructure/routerbackupmysql.js';
+
+
 const app =  express();
 app.use(express.json());
 app.use(cors());
@@ -105,6 +108,8 @@ app.post('/api/postIncome',(req,res)=>{
    })
  })
  app.use('/accountsforpay',accountforpayRouter)
+ //this router is for list backupbackup
+ app.use('/backupdb',backupdbmysqlRouter);
 //DB.end();
 const server = app.listen(PORT,()=>{
   console.log("El puerto esta corriendo en el port:"+PORT)

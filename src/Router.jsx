@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, redirect, Route, Routes } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage";
 import { DashboardPage } from "./pages/DashboardPage";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useValidatelogin } from "./customhooks/ValidateLoginCustomhook";
 //the main router
 export const RouterMain = ()=>

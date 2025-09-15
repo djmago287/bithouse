@@ -5,26 +5,27 @@ import { CardBarchartMonthIncome } from "../BarchartMonthIncomeCard";
 import { CardCurrentValuesMonth } from "../CurrentValueMonthCard";
 import { TableIncomeCard } from "../TableIncomeCard";
 import { Request_lastmonths } from "../infrastructure/request_getincome";
+import { ListBackupDBCard } from "../ListBackupDBCard";
 
 
 const Containermain = styled.section`
   display:flex;
   flex-direction:column;
-  gap: 1rem;
+  gap: 1rem; flex='1';
 `;
 const Conrow = styled.section`
   display:flex;
   flex-direction:row; 
   gap: 1rem;
   width:100%;
-  flex-wrap:wrap-reverse;
+  flex-wrap:${props => props.wrap?props.wrap:'wrap-reverse'} ;
 `;
 const Concol = styled.section`
   display:flex;
   flex-direction:column;
   gap:1rem;
   min-width:320px;
-  flex: 1;
+  flex: ${props =>  (props.flex?props.flex:1)};
 `;
 export const  DashboardPage = ()=>
 {
@@ -52,6 +53,7 @@ export const  DashboardPage = ()=>
  //update data for edit formaseticomein
   const updatedata = async ()=>{
     const data = await Request_lastmonths(5);//get data de income  last 5 months
+    console.log(data);
     getcurrentdatamonth(data);
     setdataincome(data);
  }
@@ -60,25 +62,29 @@ export const  DashboardPage = ()=>
   updatedata();
  },[updatecomponent]);
 
-  const [open,setopen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+ 
 
   return( 
    <Containermain>
-      <div>
-        <Formaddincome updatecomponent={handleupdatecomponent} />
-      </div>
-     <Conrow>
-        <Concol>
-           <CardBarchartMonthIncome dataincome={dataincome}/> 
-        </Concol>
-      <Concol>
-        {datacurrentmonth.length>0 ? (        
-          <CardCurrentValuesMonth datamonth={datacurrentmonth}/> ):null}
-          <TableIncomeCard Sflex={2} Data={dataincome} ></TableIncomeCard> 
+    <Conrow wrap="wrap">
+      <Concol flex="2">
+         <Formaddincome updatecomponent={handleupdatecomponent} />
+          <Conrow>
+              <Concol>
+                <CardBarchartMonthIncome dataincome={dataincome}/> 
+              </Concol>
+              <Concol>
+              {datacurrentmonth.length>0 ? (        
+                <CardCurrentValuesMonth datamonth={datacurrentmonth}/> ):null}
+                <TableIncomeCard Sflex={2} Data={dataincome} ></TableIncomeCard> 
+              </Concol>
+              <Concol>     
+              </Concol>
+          </Conrow>
       </Concol>
-     </Conrow>
+      <Concol><ListBackupDBCard/></Concol>
+    </Conrow>
+    
     </Containermain>
   )
 }
