@@ -3,6 +3,7 @@ import styled from "styled-components";
 import EditIcon  from "@mui/icons-material/Edit";
 const CardTable = styled.section`
   background-color:white;
+  width:100%;
   border-radius:4px;
   flex:${props => props.Sflex ? props.Sflex : 1 };
 `;
@@ -18,15 +19,17 @@ export const TableIncomeCard = ({Sflex, Data})=>{
 
   return(
     <CardTable Sflex={Sflex}>
-      <TableContainer sx={{maxHeight:150}}>
+      <TableContainer>
         <Table sx={{ minWidth: 220 }} aria-label="simple table"> 
           <TableHead sx={{ backgroundColor: '#1976d2'}} >
-            <TableCell sx={{color:'white'}}>N°</TableCell>
-            <TableCell sx={{color:'white'}} >Monto</TableCell>
-            <TableCell sx={{color:'white'}}>Tipo pago </TableCell>
-            <TableCell sx={{color:'white'}}>Fecha</TableCell>
-            <TableCell sx={{color:'white'}}>Descripcion</TableCell>
-            <TableCell sx={{color:'white'}}>Option</TableCell>
+            <TableRow>
+              <TableCell sx={{color:'white'}}>N°</TableCell>
+              <TableCell sx={{color:'white'}} >Monto</TableCell>
+              <TableCell sx={{color:'white'}}>Tipo pago </TableCell>
+              <TableCell sx={{color:'white'}}>Fecha</TableCell>
+              <TableCell sx={{color:'white'}}>Descripcion</TableCell>
+              <TableCell sx={{color:'white'}}>Option</TableCell>
+            </TableRow>        
          </TableHead>
           <TableBody>
             {

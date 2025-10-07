@@ -19,6 +19,9 @@ export const ListBackupDBCard = ()=>{
     const listfiles = await Request_getallbackupmysqlfiles();
     setlisrfilebackupSQL(listfiles);
   }
+  const hola = ()=>{
+    console.log("nuevo muneo");
+  }
   useEffect(()=>{
     fetchbackupfiles();
   },[]);
@@ -28,8 +31,8 @@ export const ListBackupDBCard = ()=>{
           <Title>Backup SQL mysql</Title>
           <List dense sx={{border: '1px solid #e5e7eb',margin:'1rem'}}>
              {
-                listfilebackupSQL&&listfilebackupSQL.map((item)=>(
-                  <ListItem sx={{borderBottom:'1px solid #e5e7eb'}} secondaryAction={
+                listfilebackupSQL&&listfilebackupSQL.map((item,key)=>(
+                  <ListItem sx={{borderBottom:'1px solid #e5e7eb'}} key={key} secondaryAction={
                     <IconButton>
                       <DownloadForOfflineIcon/>
                     </IconButton>

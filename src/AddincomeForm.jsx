@@ -2,7 +2,6 @@ import { Button, TextField } from "@mui/material"
 import { useEffect, useState } from "react";         
 import { Request_setincome } from "./infrastructure/request_getincome";
 import styled from "styled-components";
-import { data } from "react-router-dom";
 //insert form the income for the client
 const Conform = styled.section`
   background-color:white;
@@ -60,7 +59,7 @@ export const Formaddincome = ({updatecomponent})=>{
   return (
     <Conform onSubmit={prevent}>
     <TextField
-    sx={{flex:2,minWidth:290}}
+   
     type="number"
     label="incomemoney" 
     variant="outlined" 

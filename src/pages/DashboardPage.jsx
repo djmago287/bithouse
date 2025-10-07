@@ -53,7 +53,6 @@ export const  DashboardPage = ()=>
  //update data for edit formaseticomein
   const updatedata = async ()=>{
     const data = await Request_lastmonths(5);//get data de income  last 5 months
-    console.log(data);
     getcurrentdatamonth(data);
     setdataincome(data);
  }
@@ -66,8 +65,8 @@ export const  DashboardPage = ()=>
 
   return( 
    <Containermain>
-    <Conrow wrap="wrap">
-      <Concol flex="2">
+    <Conrow $wrap="wrap">
+      <Concol $flex="2">
          <Formaddincome updatecomponent={handleupdatecomponent} />
           <Conrow>
               <Concol>
@@ -76,7 +75,7 @@ export const  DashboardPage = ()=>
               <Concol>
               {datacurrentmonth.length>0 ? (        
                 <CardCurrentValuesMonth datamonth={datacurrentmonth}/> ):null}
-                <TableIncomeCard Sflex={2} Data={dataincome} ></TableIncomeCard> 
+                <TableIncomeCard $Sflex={2} Data={dataincome} ></TableIncomeCard> 
               </Concol>
               <Concol>     
               </Concol>
