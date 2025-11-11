@@ -32,7 +32,7 @@ export const LoginPage = ()=>{
   if (Result.status == "OK") {
     setsessionuser("juan","1234");
     //navigate('/',{replace:true});
-    window.location.href = "http://localhost:5173";
+    window.location.href = "http://192.168.100.12:5173";
   }else{
     seterror(true);
   }
