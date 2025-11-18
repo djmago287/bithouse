@@ -13,7 +13,7 @@ const ConCard =  styled.section`
   flex:1;
 `;  
 //this is show total incomes in the current month.
-export const CardCurrentValuesMonth = ({datamonth})=>{
+export const CardCurrentValuesMonth = ({datamonth,typestyle})=>{
   const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre",
   "Noviembre","Deciembre"];
   const date = new Date();  
@@ -21,7 +21,6 @@ export const CardCurrentValuesMonth = ({datamonth})=>{
   const totalIncomeCurrentMonth = (data)=>{
     let tmptotal = 0;
     data.map((item)=>{
-      
       tmptotal+=item.ValueIncomeM; 
     });
     settotalincome(tmptotal);
@@ -31,7 +30,7 @@ export const CardCurrentValuesMonth = ({datamonth})=>{
   },[datamonth]);
   
 return(<ConCard><Typography color="black" textAlign={'center'}>Total ingresos actuales mes {months[date.getMonth()]} </Typography> 
-  <Typography variant="h4"  color="primary"  textAlign="center">${totalincome.toFixed(2)}</Typography> 
+  <Typography variant="h4"  color={typestyle?typestyle:'primary'}  textAlign="center">${totalincome.toFixed(2)}</Typography> 
   </ConCard>);
   
 }

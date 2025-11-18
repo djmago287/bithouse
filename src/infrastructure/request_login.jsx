@@ -1,6 +1,6 @@
 export const Request_login= async (User, Password)=>
 {
- const URL = 'http://192.168.100.12:5800/api/postLogin';
+ const URL = import.meta.env.VITE_URL_LOGIN;
  const data={
    "User":User,
    "Password":Password,

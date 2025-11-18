@@ -6,12 +6,15 @@ import { CardCurrentValuesMonth } from "../CurrentValueMonthCard";
 import { TableIncomeCard } from "../TableIncomeCard";
 import { Request_lastmonths } from "../infrastructure/request_getincome";
 import { ListBackupDBCard } from "../ListBackupDBCard";
+import { Navbar_IncomeExpenses } from "../components/Navbar_IncomeExpenses";
+import { FormExpense } from "../components/AddexpenseForm";
 
 
 const Containermain = styled.section`
   display:flex;
   flex-direction:column;
   gap: 1rem; flex='1';
+
 `;
 const Conrow = styled.section`
   display:flex;
@@ -24,7 +27,7 @@ const Concol = styled.section`
   display:flex;
   flex-direction:column;
   gap:1rem;
-  min-width:320px;
+  min-width:200px;
   flex: ${props =>  (props.flex?props.flex:1)};
 `;
 export const  DashboardPage = ()=>
@@ -32,6 +35,7 @@ export const  DashboardPage = ()=>
  const [updatecomponent,setupdatecomponent] =  useState(false);
  const [datacurrentmonth,setdatacurrentmonth] = useState([]);
  const [dataincome,setdataincome] =  useState([]);
+ const [ActiveForm,SetActiveForm] = useState("incomes");
  
  const handleupdatecomponent= ()=>{
   setupdatecomponent(!updatecomponent);
@@ -56,7 +60,9 @@ export const  DashboardPage = ()=>
     getcurrentdatamonth(data);
     setdataincome(data);
  }
-
+ const handlechangemenu=(menuactive)=>{
+    SetActiveForm(menuactive);
+ }
  useEffect(()=>{
   updatedata();
  },[updatecomponent]);
@@ -66,22 +72,27 @@ export const  DashboardPage = ()=>
   return( 
    <Containermain>
     <Conrow $wrap="wrap">
-      <Concol $flex="2">
-         <Formaddincome updatecomponent={handleupdatecomponent} />
+      <Concol >
+         <Navbar_IncomeExpenses handlechangemenu={handlechangemenu}/>
+         {ActiveForm==="incomes" && <Formaddincome updatecomponent={handleupdatecomponent}/>}
+         { ActiveForm == "expenses" && <FormExpense/>}
           <Conrow>
               <Concol>
-                <CardBarchartMonthIncome dataincome={dataincome}/> 
-              </Concol>
-              <Concol>
-              {datacurrentmonth.length>0 ? (        
-                <CardCurrentValuesMonth datamonth={datacurrentmonth}/> ):null}
+                <CardBarchartMonthIncome dataincome={dataincome} /> 
+                {datacurrentmonth.length>0 ? (<CardCurrentValuesMonth datamonth={datacurrentmonth}/> ):null}
                 <TableIncomeCard $Sflex={2} Data={dataincome} ></TableIncomeCard> 
               </Concol>
-              <Concol>     
+              <Concol>
+                <CardBarchartMonthIncome dataincome={dataincome} typestyle={'secondary'}/> 
+                {datacurrentmonth.length>0 ? (<CardCurrentValuesMonth datamonth={datacurrentmonth} typestyle={'secondary'}/> ):null}
+                <TableIncomeCard $Sflex={2} Data={dataincome} typestyle={'secondary'} ></TableIncomeCard> 
               </Concol>
+            
           </Conrow>
       </Concol>
-      <Concol><ListBackupDBCard/></Concol>
+      {
+        //<Concol><ListBackupDBCard/></Concol>
+      } 
     </Conrow>
     
     </Containermain>

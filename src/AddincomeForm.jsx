@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material"
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { useEffect, useState } from "react";         
 import { Request_setincome } from "./infrastructure/request_getincome";
 import styled from "styled-components";
@@ -28,6 +28,7 @@ export const Formaddincome = ({updatecomponent})=>{
   const [income,setincome] =   useState('');
   const [description,setdescripcion] = useState('');
   const [methodpayment,setmethodpayment] = useState('Efectivo');
+  const [typeincome,settypeincome] = useState('Otros');
   const [date,setdate] = useState({
     "Year":"",
     "Month":"",
@@ -50,7 +51,7 @@ export const Formaddincome = ({updatecomponent})=>{
   }
   const handlesetincome = (income,description,methodpayment)=>{
     //console.log(income +"--"+description+"---"+methodpayment);
-    Request_setincome(income,description,methodpayment);
+    Request_setincome(income,description,methodpayment,typeincome);
     updatecomponent();
   }
   useEffect(()=>{
@@ -59,27 +60,46 @@ export const Formaddincome = ({updatecomponent})=>{
   return (
     <Conform onSubmit={prevent}>
     <TextField
-   
+     sx={{flex:1,minWidth:290}}
     type="number"
     label="incomemoney" 
     variant="outlined" 
     value={income} 
     onChange={(e)=>setincome(e.target.value)} />
     <TextField
-    sx={{flex:3,minWidth:290}}
+    sx={{flex:1,minWidth:290}}
     label="Descripción" 
     variant="outlined" 
     value={description} 
     onChange={(e)=>setdescripcion(e.target.value)} />
+    <FormControl  sx={{flex:1, minWidth:200 }}  color="secondary">
+      <InputLabel  id="incometype">Income Type</InputLabel>
+      <Select 
+      labelId="incometype" 
+      label="Income Type"
+      onChange={e=>settypeincome(e.target.value)}
+      value={typeincome} 
+      color="secondary">
+        <MenuItem value="CobroDeuda">Cobro Deuda</MenuItem>
+        <MenuItem value="Rentas">Rentas</MenuItem>
+        <MenuItem value="Salario">Salario</MenuItem>
+        <MenuItem value="Otros">Otros</MenuItem>
+      </Select> 
+    </FormControl>
     <Lbldate>{`${date.Year}- ${date.Month} - ${date.Day}`}</Lbldate>
-    <SelectMethod
-    value={methodpayment}
-    onChange={e=>setmethodpayment(e.target.value)}
-    >
-     <option value="Efectivo" >Efectivo</option>
-     <option value="Transferencia" >Transferencia</option>
-     <option value="Otros" >Otros</option>
-    </SelectMethod>
+    <FormControl sx={{flex:1,minWidth:200}}color="secondary">
+       <InputLabel id="methodpayment" >Methodpayment</InputLabel>
+       <Select
+       color="secondary"
+        label="Methodpayment"
+        value={methodpayment}
+        onChange={e=>setmethodpayment(e.target.value)}
+        >
+        <MenuItem value="Efectivo" >Efectivo</MenuItem>
+        <MenuItem value="Transferencia" >Transferencia</MenuItem>
+        <MenuItem value="Otros" >Otros</MenuItem>
+      </Select>
+    </FormControl>
     <Button
     sx={{flex:1,minWidth:150}}
     type="submit" 

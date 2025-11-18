@@ -72,12 +72,12 @@ app.get('/api/getIncomelastmonths/:n_months',(req,res)=>{
 })
 //ingresar nuevos ingresos
 app.post('/api/postIncome',(req,res)=>{
-  const {value,description,date,paymentmethod,hour} =  req.body;
-  if (!value || !date || !description || !paymentmethod || !hour ) {
+  const {value,description,date,paymentmethod,hour,typeincome} =  req.body;
+  if (!value || !date || !description || !paymentmethod || !hour || !typeincome ) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
     }
-  const values = [value, date, description, paymentmethod, hour];
-  const SQLQUERY = 'INSERT INTO IncomeMoney (ValueIncomeM,DateIncomeM,DescriptionIncomeM,PaymentmethodIncomeM,HourIncomeM) values(?,?,?,?,?);'
+  const values = [value, date, description, paymentmethod, hour,typeincome];
+  const SQLQUERY = 'INSERT INTO IncomeMoney (ValueIncomeM,DateIncomeM,DescriptionIncomeM,PaymentmethodIncomeM,HourIncomeM,TypeIncomeM) values(?,?,?,?,?,?);'
   
   DB.query(SQLQUERY,values,(err,result)=>{
     if (err) {

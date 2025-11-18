@@ -3,6 +3,7 @@ import { Card } from "@mui/material";
 import { BarChart } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useTypestyles } from "./customhooks/StylesCustomhookj";
 
 const ConCard = styled.section`
  background-color:white;
@@ -10,7 +11,8 @@ const ConCard = styled.section`
  border-radius:4px;
 `;
 //this is show total incomes in the current month.
-export const CardBarchartMonthIncome = ({dataincome})=>{
+export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
+  const {style,insertstyle} =  useTypestyles({type:typestyle});
   const [fivemonths,setfivemonths] =  useState({
     name:[],
     totales:[]
@@ -43,17 +45,17 @@ const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto
       })
       i++;
     }
-
     setfivemonths(data=>({...data,totales:tmptotales}));
-  
   }
  useEffect(()=>{
+  //insertstyle
+  insertstyle();
    handlefivemonth()
-   totalesIncomeMonth(dataincome);
+   totalesIncomeMonth(dataincome);//#9c27b0;
  },[dataincome]);
 return(<ConCard>  <BarChart
   xAxis={[{ data: fivemonths.name }]}
-  series={[{ data: fivemonths.totales, color:'#1976d2' }]}
+  series={[{ data: fivemonths.totales, color:style }]}
   height={297}
 />
   </ConCard>);
