@@ -35,7 +35,7 @@ export const  DashboardPage = ()=>
  const [updatecomponent,setupdatecomponent] =  useState(false);
  const [datacurrentmonth,setdatacurrentmonth] = useState([]);
  const [dataincome,setdataincome] =  useState([]);
- const [ActiveForm,SetActiveForm] = useState("incomes");
+ const [ActiveForm,SetActiveForm] = useState("incomes");//this is for switch between income and expenses form
  
  const handleupdatecomponent= ()=>{
   setupdatecomponent(!updatecomponent);
@@ -80,12 +80,12 @@ export const  DashboardPage = ()=>
               <Concol>
                 <CardBarchartMonthIncome dataincome={dataincome} /> 
                 {datacurrentmonth.length>0 ? (<CardCurrentValuesMonth datamonth={datacurrentmonth}/> ):null}
-                <TableIncomeCard $Sflex={2} Data={dataincome} ></TableIncomeCard> 
+                <TableIncomeCard $Sflex={2} Data={dataincome} handleupdatepage={handleupdatecomponent} ></TableIncomeCard> 
               </Concol>
               <Concol>
                 <CardBarchartMonthIncome dataincome={dataincome} typestyle={'secondary'}/> 
                 {datacurrentmonth.length>0 ? (<CardCurrentValuesMonth datamonth={datacurrentmonth} typestyle={'secondary'}/> ):null}
-                <TableIncomeCard $Sflex={2} Data={dataincome} typestyle={'secondary'} ></TableIncomeCard> 
+                <TableIncomeCard $Sflex={2} Data={dataincome} typestyle={'secondary'}  ></TableIncomeCard> 
               </Concol>
             
           </Conrow>

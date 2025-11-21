@@ -1,7 +1,8 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
-import { useEffect, useState } from "react";         
+import { useState } from "react";         
 import { Request_setincome } from "./infrastructure/request_getincome";
 import styled from "styled-components";
+import { UseDatecurrent } from "./customhooks/DateCustomhook";
 //insert form the income for the client
 const Conform = styled.section`
   background-color:white;
@@ -29,34 +30,17 @@ export const Formaddincome = ({updatecomponent})=>{
   const [description,setdescripcion] = useState('');
   const [methodpayment,setmethodpayment] = useState('Efectivo');
   const [typeincome,settypeincome] = useState('Otros');
-  const [date,setdate] = useState({
-    "Year":"",
-    "Month":"",
-    "Day":"",
-    "Hour":"",
-    "Minute":""
-  });
+  const {currentdate} =UseDatecurrent();
   const prevent = (e)=>{
     e.preventDefault();
   }
-  const updatedate = ()=>{
-    const date =  new Date();
-    setdate({
-      "Year":date.getFullYear(),
-      "Month" : date.getMonth()+1,
-      "Day" : date.getDate(),
-      "Hour" : date.getHours(),
-      "Minute" : date.getMinutes()
-    })
-  }
+  
   const handlesetincome = (income,description,methodpayment)=>{
     //console.log(income +"--"+description+"---"+methodpayment);
     Request_setincome(income,description,methodpayment,typeincome);
     updatecomponent();
   }
-  useEffect(()=>{
-    updatedate();
-  },[]);
+
   return (
     <Conform onSubmit={prevent}>
     <TextField
@@ -86,7 +70,7 @@ export const Formaddincome = ({updatecomponent})=>{
         <MenuItem value="Otros">Otros</MenuItem>
       </Select> 
     </FormControl>
-    <Lbldate>{`${date.Year}- ${date.Month} - ${date.Day}`}</Lbldate>
+    <Lbldate>{`${currentdate.Year}- ${currentdate.Month} - ${currentdate.Day}`}</Lbldate>
     <FormControl sx={{flex:1,minWidth:200}}color="secondary">
        <InputLabel id="methodpayment" >Methodpayment</InputLabel>
        <Select

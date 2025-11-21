@@ -1,8 +1,9 @@
- import express, {json} from 'express'
+ import express from 'express'
 import mysql from 'mysql';
 import cors from  'cors';
 import { accountforpayRouter } from './cuentasporpagar/infrastructure/routeraccountsforpay.js';
 import { backupdbmysqlRouter } from './backupdb/infrastructure/routerbackupmysql.js';
+import { incomeRouter } from './income/infrastructure/routerincome.js';
 
 
 const app =  express();
@@ -89,6 +90,22 @@ app.post('/api/postIncome',(req,res)=>{
     res.json(result);
   })
 })
+//Update data income money
+app.put('/api/updateIncome/:id',(req,res)=>{
+  const {id} =  req.params;
+  const {value,description,date,paymentmethod,hour,typeincome} =  req.body;
+  const values = [value, date, description, paymentmethod, hour,typeincome,id];
+  const SQLQUERY = 'UPDATE IncomeMoney SET ValueIncomeM = ?, DateIncomeM = ?, DescriptionIncomeM = ?, PaymentmethodIncomeM = ?, HourIncomeM = ?, TypeIncomeM = ? WHERE idIncomeM = ? ';
+  DB.query(SQLQUERY,values,(err,result)=>{
+    if (err) {
+      throw err;
+      res.status(500).json({ error: 'Error al actualizar los datos.' });
+    }else{
+      console.log("Update data income money ok id:"+id);
+      res.json({status:"OK",msg:`Update data income money ok id ${+id}.`});
+    }
+  })
+});
 //Login
  app.post('/api/postlogin',(req,res)=>{
   const {User,Password} =  req.body;
@@ -107,6 +124,8 @@ app.post('/api/postIncome',(req,res)=>{
   
    })
  })
+ //this router if for income 
+ app.use('/api',incomeRouter)
  app.use('/accountsforpay',accountforpayRouter)
  //this router is for list backupbackup
  app.use('/backupdb',backupdbmysqlRouter);

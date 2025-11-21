@@ -39,4 +39,35 @@ export const Request_setincome =  async (valueincome,description,methodpayment,t
   const res = await request.json();
   console.log(res);
 }
-
+export const Request_updateincome = async(id,valueincome,hourvalueincome,description,methodpayment,typeincome,dateincome)=>{
+  const URL=import.meta.env.VITE_URL_UPDATEINCOME+id;
+  const data={"value":valueincome,
+    "description":description,
+    "date":dateincome,
+    "paymentmethod":methodpayment,
+    "hour":hourvalueincome,
+    "typeincome":typeincome
+  };
+  const options = {
+    method:"PUT",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(data)
+  }
+  const request = await fetch(URL,options);
+  const res = await request.json();
+  console.log(res);
+}
+export const Request_deleteincome =  async(id)=>{
+  const URL = import.meta.env.VITE_URL_DELETEINCOME+id;
+  const option = {
+    method:"DELETE",
+    headers:{
+      "Content-Type":"applicatiion/json"
+    }
+  }
+  const request =  await fetch(URL,option)
+  const res =  await request.json();
+  console.log(res);
+}
