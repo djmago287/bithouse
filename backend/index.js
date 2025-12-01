@@ -55,13 +55,13 @@ app.get('/api/getIncomeMonth/:n_month',(req,res)=>{
   })
 });
 // get  los datos de los meses que quiero traer pueden ser los ultimo 3 o 5 
-app.get('/api/getIncomelastmonths/:n_months',(req,res)=>{
-  const {n_months} =  req.params;
+app.get('/api/getIncomelastmonths/:iduser/:n_months',(req,res)=>{
+  const {n_months,iduser} =  req.params;
   const date =  new Date();
   const year =  date.getFullYear();
   const month = date.getMonth()-n_months; //this is last five month to now
-  const SQLQUERY = 'SELECT * FROM IncomeMoney WHERE YEAR(DateIncomeM) = ? AND MONTH(DateIncomeM) > ?';
-  const values = [year,month];
+  const SQLQUERY = 'SELECT * FROM IncomeMoney WHERE YEAR(DateIncomeM) = ? AND MONTH(DateIncomeM) > ? AND IdUser = ? ';
+  const values = [year,month,iduser];
   DB.query(SQLQUERY,values,(err,result)=>{
     if (err) {
       throw err;
@@ -72,13 +72,14 @@ app.get('/api/getIncomelastmonths/:n_months',(req,res)=>{
   })
 })
 //ingresar nuevos ingresos
-app.post('/api/postIncome',(req,res)=>{
+app.post('/api/postIncome/:iduser',(req,res)=>{
+  const {iduser} = req.params
   const {value,description,date,paymentmethod,hour,typeincome} =  req.body;
-  if (!value || !date || !description || !paymentmethod || !hour || !typeincome ) {
+  if (!value || !date || !description || !paymentmethod || !hour || !typeincome || !iduser) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
     }
-  const values = [value, date, description, paymentmethod, hour,typeincome];
-  const SQLQUERY = 'INSERT INTO IncomeMoney (ValueIncomeM,DateIncomeM,DescriptionIncomeM,PaymentmethodIncomeM,HourIncomeM,TypeIncomeM) values(?,?,?,?,?,?);'
+  const values = [iduser,value, date, description, paymentmethod, hour,typeincome];
+  const SQLQUERY = 'INSERT INTO IncomeMoney (IdUser,ValueIncomeM,DateIncomeM,DescriptionIncomeM,PaymentmethodIncomeM,HourIncomeM,TypeIncomeM) values(?,?,?,?,?,?,?);'
   
   DB.query(SQLQUERY,values,(err,result)=>{
     if (err) {

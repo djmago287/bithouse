@@ -4,28 +4,26 @@ export const Request_getincomeall = async ()=>{
   const res =  await request.json();
 
 }
-export const Request_getincomecurrentmonth =  async (n_month)=>{
-  const URL=import.meta.env.VITE_URL_GETINCOMECURRENTMONTH+n_month;
+export const Request_getincomecurrentmonth =  async (idUser,n_month)=>{
+  const URL=import.meta.env.VITE_URL_GETINCOMECURRENTMONTH+idUser+"/"+n_month;
   const request = await fetch(URL);
   const res =  await request.json();
   console.log(res);
   return res; 
 }
-export  const Request_lastmonths = async(totalmonth)=>{
-   const URL= import.meta.env.VITE_URL_GETLASTMONTHS+totalmonth;
+export  const Request_lastmonths = async(idUser,totalmonth)=>{
+   const URL= import.meta.env.VITE_URL_GETLASTMONTHS+idUser+"/"+totalmonth;
   const request =  await fetch(URL);
   const res =  await request.json();
   return res;
 }    
-export const Request_setincome =  async (valueincome,description,methodpayment,typeincome)=>{
-  const URL=import.meta.env.VITE_URL_POSTINCOME;
-  const date =  new Date();
-  const formatdata =  date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+export const Request_setincome =  async (idUser,valueincome,description,methodpayment,typeincome,date,hour)=>{
+  const URL=import.meta.env.VITE_URL_POSTINCOME+idUser;
   const data={"value":valueincome,
     "description":description,
-    "date":formatdata,
+    "date":date,
     "paymentmethod":methodpayment,
-    "hour":`${date.getHours()}:${date.getMinutes()}`,
+    "hour":hour,
     "typeincome":typeincome
   };
   const options = {

@@ -11,6 +11,7 @@ export const UseDatecurrent = ()=>{
         });
     return {currentdate};
 }
+//formatea tu date 
 export const UseDateformat = (date)=>{
 
     const formatdate  = (date) =>{

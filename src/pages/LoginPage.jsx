@@ -2,7 +2,6 @@ import { Alert, Button, TextField } from "@mui/material";
 import styled from "styled-components";
 import { Request_login } from "../infrastructure/request_login";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useValidatelogin } from "../customhooks/ValidateLoginCustomhook";
 
 
@@ -22,15 +21,16 @@ const Conheader = styled.section`
 
 export const LoginPage = ()=>{
   const urlhome = import.meta.env.VITE_URLBITHOUSE_LOCAL
-  const navigate =  useNavigate();
   const {setsessionuser} =  useValidatelogin();
   const [error,seterror] = useState(false);
   const [user,setuser] = useState({Name:"",Password:""});
   const handleLogin =  async(e)=>{
   e.preventDefault();
   const Result =  await Request_login(user.Name,user.Password);
+ 
   if (Result.status == "OK") {
-    setsessionuser("juan","1234");
+    
+    setsessionuser(Result.data[0].IdUser,"juan","1234");
     //navigate('/',{replace:true});
     window.location.href = urlhome;
   }else{

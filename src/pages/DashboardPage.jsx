@@ -5,9 +5,9 @@ import { CardBarchartMonthIncome } from "../BarchartMonthIncomeCard";
 import { CardCurrentValuesMonth } from "../CurrentValueMonthCard";
 import { TableIncomeCard } from "../TableIncomeCard";
 import { Request_lastmonths } from "../infrastructure/request_getincome";
-import { ListBackupDBCard } from "../ListBackupDBCard";
 import { Navbar_IncomeExpenses } from "../components/Navbar_IncomeExpenses";
 import { FormExpense } from "../components/AddexpenseForm";
+import { useValidatelogin } from "../customhooks/ValidateLoginCustomhook";
 
 
 const Containermain = styled.section`
@@ -36,7 +36,7 @@ export const  DashboardPage = ()=>
  const [datacurrentmonth,setdatacurrentmonth] = useState([]);
  const [dataincome,setdataincome] =  useState([]);
  const [ActiveForm,SetActiveForm] = useState("incomes");//this is for switch between income and expenses form
- 
+ const {getsessionuser} = useValidatelogin();
  const handleupdatecomponent= ()=>{
   setupdatecomponent(!updatecomponent);
  } 
@@ -56,7 +56,8 @@ export const  DashboardPage = ()=>
  } 
  //update data for edit formaseticomein
   const updatedata = async ()=>{
-    const data = await Request_lastmonths(5);//get data de income  last 5 months
+    const user =  getsessionuser();
+    const data = await Request_lastmonths(user.id,5);//get data de income  last 5 months
     getcurrentdatamonth(data);
     setdataincome(data);
  }
