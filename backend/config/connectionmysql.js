@@ -4,7 +4,7 @@ export class dbmysql{
         this.DB = mysql.createConnection(
             {
                 host: 'localhost',
-                user: 'root',
+                user: 'djmago',
                 password: 'rasta287',
                 database: 'DBBITHOUSE',
             }
