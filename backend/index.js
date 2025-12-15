@@ -127,7 +127,7 @@ app.put('/api/updateIncome/:id',(req,res)=>{
  })
  //this router if for income 
  app.use('/api',incomeRouter)
- app.use('/accountsforpay',accountforpayRouter)
+ app.use('/api',accountforpayRouter)
  //this router is for list backupbackup
  app.use('/backupdb',backupdbmysqlRouter);
 //DB.end();

@@ -1,4 +1,4 @@
 import { Router} from 'express';
-import { AccountforpayAplication } from '../application/accountfoypay.js';
+import { Expenseapplication } from '../application/accountfoypay.js';
 export const accountforpayRouter =  Router();
-accountforpayRouter.get('/',AccountforpayAplication.getall);
+accountforpayRouter.get('/getexpenses/:iduser',Expenseapplication.getexpense);
