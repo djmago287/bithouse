@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import styled from "styled-components";
 import { Formaddincome } from "../AddincomeForm";
 import { CardBarchartMonthIncome } from "../BarchartMonthIncomeCard";
@@ -32,6 +32,8 @@ const Concol = styled.section`
 `;
 export const  DashboardPage = ()=>
 {
+//loading data
+const isloadingdata = useRef(false);
  const [updatecomponent,setupdatecomponent] =  useState(false);
  const [datacurrentmonth,setdatacurrentmonth] = useState([]);
  const [dataincome,setdataincome] =  useState([]);
@@ -65,7 +67,13 @@ export const  DashboardPage = ()=>
     SetActiveForm(menuactive);
  }
  useEffect(()=>{
-  updatedata();
+  //valida para que se carge una sola vez
+    if (!isloadingdata.current) {
+      isloadingdata.current =  true;
+      return;
+    }
+     updatedata();
+
  },[updatecomponent]);
 
  

@@ -17,25 +17,28 @@ export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
     name:[],
     totales:[]
   });
-  const date = new Date();
-const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-// the five finish month only update
+  
   const handlefivemonth = ()=>{
+    const date = new Date();
+  const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  // the five finish month only update
     const tmpmonths = [];
     months.map((item,key)=>{
-    if(key<=(date.getMonth()) & key>(date.getMonth()-5))
+    if(key>=(date.getMonth()) & key<(date.getMonth()+5))
     {
     tmpmonths.push(item);  
     }
     })
     setfivemonths({...fivemonths,name:tmpmonths});
+    
   }
   
   const totalesIncomeMonth = async(data)=>{
     const tmptotales = [];
     let i=0;
     const currentmonth = new Date().getMonth();
-    for (let listmonth = currentmonth-4; listmonth <= currentmonth; listmonth++) {      
+    
+    for (let listmonth = currentmonth; listmonth <= currentmonth+4; listmonth++) {    
       tmptotales[i]=0;
       data.map((item) => {
         const month = new Date(item.DateIncomeM).getMonth();
@@ -47,17 +50,29 @@ const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto
     }
     setfivemonths(data=>({...data,totales:tmptotales}));
   }
+
+  const chartSetting = {
+    yAxis: [
+      {
+        label: 'Valor ($)',
+        width: 50,
+      },
+    ],
+    height: 297,
+  };
  useEffect(()=>{
   //insertstyle
   insertstyle();
-   handlefivemonth()
+   handlefivemonth();
    totalesIncomeMonth(dataincome);//#9c27b0;
  },[dataincome]);
-return(<ConCard>  <BarChart
-  xAxis={[{ data: fivemonths.name }]}
-  series={[{ data: fivemonths.totales, color:style }]}
-  height={297}
-/>
+ 
+return(<ConCard>  
+  <BarChart
+    xAxis={[{ data: fivemonths.name }]}
+    series={[{ data: fivemonths.totales, color:style }]}
+    {...chartSetting}
+  />
   </ConCard>);
   
 }

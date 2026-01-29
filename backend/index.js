@@ -1,5 +1,5 @@
- import express from 'express'
-import mysql from 'mysql';
+import express from 'express'
+import { dbmysql } from "./config/connectionmysql.js";
 import cors from  'cors';
 import { accountforpayRouter } from './cuentasporpagar/infrastructure/routeraccountsforpay.js';
 import { backupdbmysqlRouter } from './backupdb/infrastructure/routerbackupmysql.js';
@@ -11,22 +11,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({extended:true}))
 const PORT = process.env.PORT ?? 5800;
-const  DB = mysql.createConnection(
-  {
-    host:'localhost',
-    user:'djmago',
-    password:'rasta287',
-    database:'DBBITHOUSE',
-  }
-)
-//validate conexion database
-DB.connect((err)=>{
-  if(err){
-    throw err
-  }
-  console.log("conexion exitosa");
-}
-)
+const database =  new dbmysql();
+const DB  =  database.DB;
 app.get('/api/getIncome',(req,res)=>{
   const SQLQUERY = 'SELECT * FROM IncomeMoney';
   DB.query(SQLQUERY,(err,result)=>{

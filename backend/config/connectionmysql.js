@@ -3,7 +3,7 @@ export class dbmysql{
     constructor(){
         this.DB = mysql.createConnection(
             {
-                host: 'localhost',
+                host:'192.168.100.12',
                 user: 'djmago',
                 password: 'rasta287',
                 database: 'DBBITHOUSE',
