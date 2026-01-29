@@ -32,16 +32,16 @@ export const FormExpense = ()=>{
     updatedate();
   },[])
     return(<Conform onSubmit={(e)=>{e.preventDefault();handleaddexpense() }}>
-        <TextField type="number" label="Expensemoney" variant="outlined"/> 
-        <TextField  label="Description" variant="outlined"/> 
+        <TextField type="number" label="Expensemoney" variant="outlined" sx={{flex:1,minWidth:290}} /> 
+        <TextField  label="Description" variant="outlined" sx={{ flex:1, minWidth:200 }}/> 
         <FormControl  sx={{ flex:1, minWidth:200 }} color="secondary">
-          <InputLabel  id="expensetype">Expense Type</InputLabel>
+          <InputLabel   id="expensetype">Expense Type</InputLabel>
           <Select labelId="expensetype" label="Expense Type" color="secondary">
             <MenuItem value="Food">Food</MenuItem>
             <MenuItem value="Transport">Transport</MenuItem>
           </Select> 
         </FormControl>
-        <Typography>{`${date.Year} -${date.Month} - ${date.Day}`} </Typography>
+        <Typography sx={{ flex:1, minWidth:200, alignItems:"center"}}>{`${date.Year} -${date.Month} - ${date.Day}`} </Typography>
         <FormControl  sx={{ flex:1, minWidth:200 }} color="secondary">
           <InputLabel  id="paymentmethod">Payment Method</InputLabel>
           <Select labelId="paymentmethod" label="Payment Method" color="secondary">
@@ -51,6 +51,7 @@ export const FormExpense = ()=>{
           </Select> 
         </FormControl>
         <Button    
+        sx={{ flex:1, minWidth:200, alignItems:"center" }}
         type="submit" 
         variant="contained" >Add Expense</Button>
         </Conform>)
