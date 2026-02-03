@@ -21,10 +21,7 @@ const Lbldate =  styled.label`
  min-Width:200px;
  flex:1
 `;
-const SelectMethod =  styled.select`
- flex: 1;
- min-Width:200px;
-`;
+
 export const Formaddincome = ({updatecomponent})=>{
   const {currentdate} =UseDatecurrent();
   const {getsessionuser} = useValidatelogin();
@@ -97,7 +94,7 @@ export const Formaddincome = ({updatecomponent})=>{
     <TextField
     required
     error={dataincome.IncomeM.error}
-     sx={{flex:1,minWidth:290}}
+    sx={{flex:1,minWidth:290}}
     label={dataincome.IncomeM.error?'Solo numeros':"incomemoney"}  
     variant="outlined" 
     value={dataincome.IncomeM.value} 

@@ -43,16 +43,13 @@ app.get('/api/getIncomeMonth/:n_month',(req,res)=>{
 // get  los datos de los meses que quiero traer pueden ser los ultimo 3 o 5 
 app.get('/api/getIncomelastmonths/:iduser/:n_months',(req,res)=>{
   const {n_months,iduser} =  req.params;
-  const date =  new Date();
-  const year =  date.getFullYear();
-  const month = date.getMonth()-n_months; //this is last five month to now
-  const SQLQUERY = 'SELECT * FROM IncomeMoney WHERE YEAR(DateIncomeM) = ? AND MONTH(DateIncomeM) > ? AND IdUser = ? ';
-  const values = [year,month,iduser];
+  const SQLQUERY = 'SELECT * FROM IncomeMoney WHERE  IdUser = ? AND DateIncomeM >= DATE_SUB(LAST_DAY(NOW()), INTERVAL ? MONTH) ORDER BY DateIncomeM ASC ';
+  const values = [iduser,n_months-1];
   DB.query(SQLQUERY,values,(err,result)=>{
     if (err) {
       throw err;
     }else{
-      console.log("OK peticion de last 5 months" + month);
+      console.log("OK peticion de last 5 months" );
       res.json(result);
     }
   })

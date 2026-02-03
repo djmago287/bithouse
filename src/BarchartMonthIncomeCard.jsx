@@ -20,25 +20,27 @@ export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
   
   const handlefivemonth = ()=>{
     const date = new Date();
-  const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-  // the five finish month only update
+   const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+   // the five finish month only update
     const tmpmonths = [];
-    months.map((item,key)=>{
-    if(key>=(date.getMonth()) & key<(date.getMonth()+5))
-    {
-    tmpmonths.push(item);  
-    }
+    var totalmonths = 0;
+    months.map((item,key)=>{   
+      if(key<=date.getMonth()&&totalmonths<=5)
+      {
+        totalmonths++;
+      tmpmonths.push(item);  
+      }
     })
-    setfivemonths({...fivemonths,name:tmpmonths});
-    
+    setfivemonths({...fivemonths,name:tmpmonths});;
   }
+    
   
   const totalesIncomeMonth = async(data)=>{
     const tmptotales = [];
     let i=0;
     const currentmonth = new Date().getMonth();
     
-    for (let listmonth = currentmonth; listmonth <= currentmonth+4; listmonth++) {    
+    for (let listmonth =0; listmonth <= 1;listmonth++) {    
       tmptotales[i]=0;
       data.map((item) => {
         const month = new Date(item.DateIncomeM).getMonth();
@@ -64,6 +66,7 @@ export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
   //insertstyle
   insertstyle();
    handlefivemonth();
+   console.log(dataincome);
    totalesIncomeMonth(dataincome);//#9c27b0;
  },[dataincome]);
  
