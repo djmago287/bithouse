@@ -3,7 +3,7 @@ import { Card } from "@mui/material";
 import { BarChart } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useTypestyles } from "./customhooks/StylesCustomhookj";
+import { useTypestyles } from "./customhooks/StylesCustomhook";
 
 const ConCard = styled.section`
  background-color:white;
@@ -18,39 +18,24 @@ export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
     totales:[]
   });
   
-  const handlefivemonth = ()=>{
-    const date = new Date();
-   const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-   // the five finish month only update
-    const tmpmonths = [];
-    var totalmonths = 0;
-    months.map((item,key)=>{   
-      if(key<=date.getMonth()&&totalmonths<=5)
-      {
-        totalmonths++;
-      tmpmonths.push(item);  
-      }
-    })
-    setfivemonths({...fivemonths,name:tmpmonths});;
-  }
-    
   
   const totalesIncomeMonth = async(data)=>{
-    const tmptotales = [];
-    let i=0;
-    const currentmonth = new Date().getMonth();
-    
-    for (let listmonth =0; listmonth <= 1;listmonth++) {    
-      tmptotales[i]=0;
-      data.map((item) => {
-        const month = new Date(item.DateIncomeM).getMonth();
-        if (listmonth==month) {
-          tmptotales[i]+=item.ValueIncomeM;
-        }
-      })
-      i++;
-    }
-    setfivemonths(data=>({...data,totales:tmptotales}));
+    //calc months 
+    var listmonthsincome={};
+    data.map((item)=>{
+     const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+      const nMonth =  new Date(item.DateIncomeM).getMonth();
+      const getMonth =  months[nMonth] ;
+      console.log(getMonth);
+      if (!listmonthsincome[getMonth]) {
+        listmonthsincome[getMonth]=0;
+      }
+      listmonthsincome[getMonth]+=parseFloat(item.ValueIncomeM);
+    })
+    setfivemonths({
+      name:Object.keys(listmonthsincome),//[Enero,Febrero]
+      totales:Object.values(listmonthsincome)}//[123,123]
+    )
   }
 
   const chartSetting = {
@@ -64,18 +49,18 @@ export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
   };
  useEffect(()=>{
   //insertstyle
-  insertstyle();
-   handlefivemonth();
-   console.log(dataincome);
+   insertstyle();
+   //console.log(dataincome);
    totalesIncomeMonth(dataincome);//#9c27b0;
  },[dataincome]);
  
-return(<ConCard>  
-  <BarChart
-    xAxis={[{ data: fivemonths.name }]}
-    series={[{ data: fivemonths.totales, color:style }]}
-    {...chartSetting}
-  />
+return(
+ <ConCard>  
+    <BarChart
+      xAxis={[{ data: fivemonths.name }]}
+      series={[{ data: fivemonths.totales, color:style }]}
+      {...chartSetting}
+    />
   </ConCard>);
   
 }

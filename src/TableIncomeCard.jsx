@@ -3,7 +3,7 @@ import styled from "styled-components";
 import EditIcon  from "@mui/icons-material/Edit";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
-import { useTypestyles } from "./customhooks/StylesCustomhookj";
+import { useTypestyles } from "./customhooks/StylesCustomhook";
 import { UpdateincomeFormModal } from "./components/UpdateincomeFormModal";
 import { UseDateformat } from "./customhooks/DateCustomhook";
 import { Request_deleteincome } from "./infrastructure/request_getincome";
@@ -39,7 +39,7 @@ export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
     <CardTable Sflex={Sflex}>
       <TableContainer sx={{maxHeight:480,overflow:'auto'}}>
         <Table  aria-label="simple table"> 
-          <TableHead sx={{ backgroundColor: style}} >
+          <TableHead sx={{ backgroundColor: style,position:"sticky",top:"0px",zIndex:3}} >
             <TableRow>
               <TableCell sx={{color:'white'}}>N°</TableCell>
               <TableCell sx={{color:'white'}}>Monto</TableCell>
@@ -63,10 +63,14 @@ export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
                   <TableCell align="left" sx={{ overflow:'hidden',whiteSpace:'nowrap',maxWidth:100,textOverflow:'ellipsis'}}>{item.DescriptionIncomeM}</TableCell>
                   <TableCell align="left" sx={{display:'flex',flexDirection:'row'}}>
                     <IconButton aria-label="Edit" onClick={()=>{
-                    setopenmodalupdateincome(true);
-                    setdataincomeupdate(item)
-                  }}> <EditIcon/> </IconButton>
-                   <IconButton aria-label="Delete" onClick={()=>handledeleteitemIncome(item.IdIncomeM)}> <DeleteForeverIcon/> </IconButton>
+                      setopenmodalupdateincome(true);
+                      setdataincomeupdate(item)
+                    }}> 
+                      <EditIcon/> 
+                    </IconButton>
+                    <IconButton aria-label="Delete" onClick={()=>handledeleteitemIncome(item.IdIncomeM)}>
+                     <DeleteForeverIcon/> 
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))
