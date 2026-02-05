@@ -48,10 +48,9 @@ const isloadingdata = useRef(false);
   const updatedata = async ()=>{
     const user =  getsessionuser();
     const dataincome = await Request_lastmonths(user.id,5);//get data de income  last 5 months
-    console.log(dataincome);
-    //const dataexpense  =  await Request_Nmonthsexpenses();
+    const dataexpense  =  await Request_Nmonthsexpenses();
     setdataincome(dataincome);
-  //  setdataexpense(dataexpense.data);
+    setdataexpense(dataexpense.data);
  }
  const handlechangemenu=(menuactive)=>{
     SetActiveForm(menuactive);
