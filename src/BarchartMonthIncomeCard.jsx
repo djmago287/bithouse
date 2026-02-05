@@ -26,7 +26,6 @@ export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
      const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
       const nMonth =  new Date(item.DateIncomeM).getMonth();
       const getMonth =  months[nMonth] ;
-      console.log(getMonth);
       if (!listmonthsincome[getMonth]) {
         listmonthsincome[getMonth]=0;
       }

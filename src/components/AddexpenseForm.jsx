@@ -1,6 +1,7 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import styled from "styled-components"
+import { UseDatecurrent } from "../customhooks/DateCustomhook";
 
 const Conform =  styled.form`
   background-color:white;
@@ -13,24 +14,40 @@ const Conform =  styled.form`
   align-items:center;
 `;
 export const FormExpense = ()=>{
-  const [date,setdate] = useState({});
-  const updatedate =()=>{
-    const date =  new Date();
-    setdate({
-      "Year":date.getFullYear(),
-      "Month" : date.getMonth()+1,
-      "Day" : date.getDate(),
-      "Hour" : date.getHours(),
-      "Minute" : date.getMinutes()
-    })
-  }
-  const handleaddexpense=()=>{
+  const {currentdate} =  UseDatecurrent();
+  const [formexpense,setformexpense] =  useState({
+    ValueExpense:{
+      value:'',
+      status:'false'
+    },
+    DescriptionExpense:{
+      value:'',
+      status:'false'
+    },
+    PaymentmethodExpense:{
+      value:'',
+      status:'false'
+    },
+    HourmethodExpense:{
+      value:'',
+      status:'false'
+    },
+    DateExpense:{
+      value:currentdate.Year+"-"+currentdate.Month+"-"+currentdate.Day,
+      status:'true'
+    },
+    TypeExpense:{
+      value:currentdate.Hour+":"+currentdate.Minute,
+      status:'true'
+    },
+  })
+
+  const handleaddexpense= async()=>{
+  
     //logic to add expense
     console.log("Add expense logic to be implemented");
   }
-  useEffect(()=>{
-    updatedate();
-  },[])
+
     return(<Conform onSubmit={(e)=>{e.preventDefault();handleaddexpense() }}>
             <TextField type="number" label="Expensemoney" variant="outlined" sx={{flex:1,minWidth:290}} /> 
             <TextField  label="Description" variant="outlined" sx={{ flex:1, minWidth:200 }}/> 
@@ -41,7 +58,9 @@ export const FormExpense = ()=>{
                 <MenuItem value="Transport">Transport</MenuItem>
               </Select> 
             </FormControl>
-            <Typography sx={{ flex:1, minWidth:200, alignItems:"center"}}>{`${date.Year} -${date.Month} - ${date.Day}`} </Typography>
+            <Typography sx={{ flex:1, minWidth:200, alignItems:"center",textAlign:"center"}}>
+             {`${currentdate.Year}- ${currentdate.Month} - ${currentdate.Day} `}
+              </Typography>
             <FormControl  sx={{ flex:1, minWidth:200 }} color="secondary">
               <InputLabel  id="paymentmethod">Payment Method</InputLabel>
               <Select labelId="paymentmethod" label="Payment Method" color="secondary">

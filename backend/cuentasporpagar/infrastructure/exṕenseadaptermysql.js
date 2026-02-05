@@ -5,10 +5,11 @@ export class ExpenseAdaptermysql{
         const database =  new dbmysql();
         this.db =  database.DB
     }
-    async getexpense(iduser){
-        const SQLQUERY = 'SELECT * FROM Expense WHERE IdUser = ? ';
+    async getexpense(iduser,n_months){
+        const SQLQUERY = 'SELECT * FROM Expense WHERE IdUser = ? AND DateExpense >= DATE_SUB(LAST_DAY(NOW()), INTERVAL ? MONTH) ORDER BY DateExpense ASC';
+        const values = [iduser,n_months]
         const resultpromise = new Promise((resolve,reject)=>{
-             this.db.query(SQLQUERY,iduser,(err,result)=>{
+             this.db.query(SQLQUERY,values,(err,result)=>{
                 if(err)throw err;
                 if(!err){
                     console.log("OK peticion de last 5 months expense");

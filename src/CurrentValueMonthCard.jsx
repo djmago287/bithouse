@@ -1,4 +1,4 @@
-import { Card, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -13,23 +13,26 @@ const ConCard =  styled.section`
   flex:1;
 `;  
 //this is show total incomes in the current month.
-export const CardCurrentValuesMonth = ({datamonth,typestyle})=>{
+export const CardCurrentValuesMonth = ({data,typestyle})=>{
   const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre",
   "Noviembre","Deciembre"];
-  const date = new Date();  
+  const datecurrent = new Date();  
   const [totalincome,settotalincome] =  useState(0);
   const totalIncomeCurrentMonth = (data)=>{
     let tmptotal = 0;
     data.map((item)=>{
-      tmptotal+=item.ValueIncomeM; 
-    });
+      const getmonth = new Date(item.DateIncomeM).getMonth();
+      if (getmonth==datecurrent.getMonth()) {
+         tmptotal+=item.ValueIncomeM; 
+      }
+    })
     settotalincome(tmptotal);
   }
   useEffect(()=>{
-    totalIncomeCurrentMonth(datamonth);
-  },[datamonth]);
+    totalIncomeCurrentMonth(data);
+  },[data]);
   
-return(<ConCard><Typography color="black" textAlign={'center'}>Total ingresos actuales mes {months[date.getMonth()]} </Typography> 
+return(<ConCard><Typography color="black" textAlign={'center'}>Total ingresos actuales mes {months[datecurrent.getMonth()]} </Typography> 
   <Typography variant="h4"  color={typestyle?typestyle:'primary'}  textAlign="center">${totalincome.toFixed(2)}</Typography> 
   </ConCard>);
   

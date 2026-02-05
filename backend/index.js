@@ -1,7 +1,7 @@
 import express from 'express'
 import { dbmysql } from "./config/connectionmysql.js";
 import cors from  'cors';
-import { accountforpayRouter } from './cuentasporpagar/infrastructure/routeraccountsforpay.js';
+import { expenseRouter } from './cuentasporpagar/infrastructure/routerexpense.js';
 import { backupdbmysqlRouter } from './backupdb/infrastructure/routerbackupmysql.js';
 import { incomeRouter } from './income/infrastructure/routerincome.js';
 
@@ -110,7 +110,7 @@ app.put('/api/updateIncome/:id',(req,res)=>{
  })
  //this router if for income 
  app.use('/api',incomeRouter)
- app.use('/api',accountforpayRouter)
+ app.use('/api',expenseRouter)
  //this router is for list backupbackup
  app.use('/backupdb',backupdbmysqlRouter);
 //DB.end();
