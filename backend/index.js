@@ -71,7 +71,7 @@ app.post('/api/postIncome/:iduser',(req,res)=>{
       console.log("Set data ok income money. id:"+result.insertId)
     
     }
-    res.json(result);
+    return res.json({status:"OK",smg:"Ingreso correcto"});
   })
 })
 //Update data income money

@@ -1,5 +1,4 @@
 
-import { Card } from "@mui/material";
 import { BarChart } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import styled from "styled-components";

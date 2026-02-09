@@ -35,7 +35,8 @@ export const Request_setincome =  async (idUser,valueincome,description,methodpa
   }
   const request =  await fetch(URL,options);
   const res = await request.json();
-  console.log(res);
+  
+  return res;
 }
 export const Request_updateincome = async(id,valueincome,hourvalueincome,description,methodpayment,typeincome,dateincome)=>{
   const URL=import.meta.env.VITE_URL_UPDATEINCOME+id;

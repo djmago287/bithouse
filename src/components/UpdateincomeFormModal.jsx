@@ -4,6 +4,7 @@ import { Alert, Button, createTheme, FormControl, IconButton, InputLabel, MenuIt
 import { useEffect, useState } from "react";
 import { UseDateformat } from "../customhooks/DateCustomhook";
 import { Request_updateincome } from "../infrastructure/request_getincome";
+
 const ModalContent = styled.div`
   position:fixed;
   top:0;
@@ -38,10 +39,7 @@ export const UpdateincomeFormModal = ({handleclose,dataincome,handleupdatepage})
     const {formatdate} = UseDateformat();
     const [validateupdateincome,setvalidateupdateincome] = useState(true);
     const [openSnackbar,setopenSnackbar] = useState(false);
-    const handleClosetoast = (event, reason) => {
-        setopenSnackbar(false);
-        handleclose();//close the modal
-    }
+   
     //the error this component is going to receive is the income data to update
     const [updatedataincome, setupdatedataincome] =  useState({
         IdIncomeM:{
@@ -107,6 +105,7 @@ export const UpdateincomeFormModal = ({handleclose,dataincome,handleupdatepage})
   return (
     <ThemeProvider theme={darkTheme}>    
         <ModalContent onClick={handleclose}>
+            {/*stopPropagation means that only the click on the button works, not the entire modal. */} 
             <Modal onClick={(e)=>e.stopPropagation()}>
                 <IconButton sx={{color:"white",position:"absolute",right:0,top:0}} onClick={handleclose} color="secondary">
                     <CloseIcon sx={{color:"white"}}/>
@@ -182,9 +181,9 @@ export const UpdateincomeFormModal = ({handleclose,dataincome,handleupdatepage})
                 </ConformUpdateincome>
             </Modal>
         </ModalContent>
-        <Snackbar  open={openSnackbar} autoHideDuration={2000} onClose={handleClosetoast}>
-            <Alert severity="success">Datos de ingreso actualizado</Alert>
-        </Snackbar>
+        {
+           // openSnackbar&&<ToastCustom msg={'Datos de ingreso actualizado'} typealert={'success'}/>
+        }
      </ThemeProvider>
   )
 }
