@@ -2,15 +2,15 @@
 import { BarChart } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useTypestyles } from "./customhooks/StylesCustomhook";
+import { useTypestyles } from "../customhooks/StylesCustomhook";
 
 const ConCard = styled.section`
  background-color:white;
  flex:1;
  border-radius:4px;
 `;
-//this is show total incomes in the current month.
-export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
+//this is show total in the current month.
+export const CardBarchartMonth = ({data,typestyle})=>{
   const {style,insertstyle} =  useTypestyles({type:typestyle});
   const [fivemonths,setfivemonths] =  useState({
     name:[],
@@ -49,8 +49,8 @@ export const CardBarchartMonthIncome = ({dataincome,typestyle})=>{
   //insertstyle
    insertstyle();
    //console.log(dataincome);
-   totalesIncomeMonth(dataincome);//#9c27b0;
- },[dataincome]);
+   totalesIncomeMonth(data);//#9c27b0;
+ },[data]);
  
 return(
  <ConCard>  

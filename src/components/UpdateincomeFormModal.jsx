@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import CloseIcon from '@mui/icons-material/Close';
-import { Alert, Button, createTheme, FormControl, IconButton, InputLabel, MenuItem, Select, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material";
+import { Button, createTheme, FormControl, IconButton, InputLabel, MenuItem, Select, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { UseDateformat } from "../customhooks/DateCustomhook";
 import { Request_updateincome } from "../infrastructure/request_getincome";
+import { ToastView, useToast } from "./Toast";
 
 const ModalContent = styled.div`
   position:fixed;
@@ -25,7 +26,7 @@ const Modal = styled.div`
   min-Width:400px;
   width:50%;
 `;
-const ConformUpdateincome = styled.form`
+const  ConformUpdateincome= styled.form`
     display:flex;
     flex-direction:column;
     gap:1rem;
@@ -38,8 +39,7 @@ const darkTheme = createTheme({
 export const UpdateincomeFormModal = ({handleclose,dataincome,handleupdatepage}) => {
     const {formatdate} = UseDateformat();
     const [validateupdateincome,setvalidateupdateincome] = useState(true);
-    const [openSnackbar,setopenSnackbar] = useState(false);
-   
+    const toast =  useToast();
     //the error this component is going to receive is the income data to update
     const [updatedataincome, setupdatedataincome] =  useState({
         IdIncomeM:{
@@ -77,13 +77,16 @@ export const UpdateincomeFormModal = ({handleclose,dataincome,handleupdatepage})
             updatedataincome.DateIncomeM.error ||
             updatedataincome.PaymentmethodIncomeM.error
         ) {
-            setvalidateupdateincome(false);
+            toast.inserttoast('Error:Llene todos los parametros','error');
+            return false;
+
         }else{
-            setvalidateupdateincome(true);
+            return true;
         }
     }
     const handleupdateincome = async()=>{
-        if(!validateupdateincome) return;
+        const validate =  handlevalidateupdateincome();
+        if(!validate) return;
         //call to the api to update income
         await Request_updateincome(
             updatedataincome.IdIncomeM.value,
@@ -94,13 +97,11 @@ export const UpdateincomeFormModal = ({handleclose,dataincome,handleupdatepage})
             updatedataincome.TypeIncomeM.value,
             formatdate(updatedataincome.DateIncomeM.value)
         );
-        setopenSnackbar(true);
+        toast.inserttoast('Actualizacion correcto','success')
         handleupdatepage();//this is to function update the data in the table after update
       
     }
-    useEffect(()=>{
-        handlevalidateupdateincome();
-    })
+   
    
   return (
     <ThemeProvider theme={darkTheme}>    
@@ -172,18 +173,17 @@ export const UpdateincomeFormModal = ({handleclose,dataincome,handleupdatepage})
                         </Select> 
                     </FormControl>
                     <Button 
+                    type="submit"
                     variant="contained" 
                     color={validateupdateincome?"primary":"error"} 
-                    onClick={handleupdateincome}
+                    onClick={()=>handleupdateincome()}
                     fullWidth >
                         {validateupdateincome?"Actualizar Ingreso":"Datos Invalidos"}
                     </Button>
                 </ConformUpdateincome>
             </Modal>
+            <ToastView toasts={toast.listtoasts} /> 
         </ModalContent>
-        {
-           // openSnackbar&&<ToastCustom msg={'Datos de ingreso actualizado'} typealert={'success'}/>
-        }
      </ThemeProvider>
   )
 }

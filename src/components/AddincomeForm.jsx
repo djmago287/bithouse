@@ -1,10 +1,10 @@
 import {  Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import {  useState } from "react";         
-import { Request_setincome } from "./infrastructure/request_getincome";
+import { Request_setincome } from "../infrastructure/request_getincome";
 import styled from "styled-components";
-import { UseDatecurrent } from "./customhooks/DateCustomhook";
-import { useValidatelogin } from "./customhooks/ValidateLoginCustomhook";
-import { ToastView, useToast} from "./components/Toast";
+import { UseDatecurrent } from "../customhooks/DateCustomhook";
+import { useValidatelogin } from "../customhooks/ValidateLoginCustomhook";
+import { ToastView, useToast} from "./Toast";
 
 //insert form the income for the client
 const Conform = styled.form`
@@ -80,7 +80,6 @@ export const Formaddincome = ({updatecomponent})=>{
       }
   }
   const handlesetincome = async ()=>{
-  
     const validate = handlevalidateformincome();
     if(!validate) return;
     //console.log(income +"--"+description+"---"+methodpayment);
@@ -94,7 +93,6 @@ export const Formaddincome = ({updatecomponent})=>{
         dataincome.DateIncomeM.value,
         dataincome.HourIncomeM.value
     );
-    const id= Date.now();
     if(res.status=='OK') toast.inserttoast(`Nuevo ingreso :${dataincome.IncomeM.value}$`,'success');
     updatecomponent();
   }
@@ -106,7 +104,7 @@ export const Formaddincome = ({updatecomponent})=>{
       error={dataincome.IncomeM.error}
       sx={{flex:1,minWidth:290}}
       label={dataincome.IncomeM.error?'Solo numeros':"incomemoney"}  
-      variant="outlined" 
+      variant="outlined" ConformUpdateincome
       value={dataincome.IncomeM.value} 
       onChange={(e)=>{
         //validate if number of string

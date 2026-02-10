@@ -12,7 +12,7 @@ export const useToast = ()=>{
     }
    return {listtoasts,inserttoast};
 }
-//ui
+//ui onremove es temporal
 export const ToastView = ({toasts,onremove})=>{
     
     return ( 

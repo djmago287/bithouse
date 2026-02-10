@@ -3,10 +3,11 @@ import styled from "styled-components";
 import EditIcon  from "@mui/icons-material/Edit";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
-import { useTypestyles } from "./customhooks/StylesCustomhook";
-import { UpdateincomeFormModal } from "./components/UpdateincomeFormModal";
-import { UseDateformat } from "./customhooks/DateCustomhook";
-import { Request_deleteincome } from "./infrastructure/request_getincome";
+import { useTypestyles } from "../customhooks/StylesCustomhook";
+import { UpdateincomeFormModal } from "../components/UpdateincomeFormModal";
+import { UseDateformat } from "../customhooks/DateCustomhook";
+import { Request_deleteincome } from "../infrastructure/request_getincome";
+import { ToastView, useToast } from "./Toast";
 
 const CardTable = styled.section`
   background-color:white;
@@ -22,15 +23,11 @@ export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
   const [openmodalupdateincome,setopenmodalupdateincome] =  useState (false);
   const [dataincomeupdate,setdataincomeupdate] = useState({});//the data update income 
   const {formatdate} = UseDateformat();
-
-   const [openSnackbar,setopenSnackbar] = useState(false);
-    const handleClosetoast = (event, reason) => {
-        setopenSnackbar(false);
-    }
+  const toastDeleteincome = useToast();
   const handledeleteitemIncome =async (id)=>{
     Request_deleteincome(id);
     handleupdatepage();
-    setopenSnackbar(true);
+    toastDeleteincome.inserttoast('Ingreso Eliminado correcto','success');
   }
   useEffect(()=>{
     insertstyle();
@@ -78,9 +75,7 @@ export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
           </TableBody>
         </Table>
       </TableContainer>
-      <Snackbar open={openSnackbar} autoHideDuration={2000} onClose={handleClosetoast}>
-        <Alert severity="error" >Ingreso Eliminado correcto:</Alert>
-      </Snackbar>
+      <ToastView toasts={toastDeleteincome.listtoasts} />
       {////the handleupdatecomponent is to update the data after close the modal
       }
       {openmodalupdateincome &&<UpdateincomeFormModal handleupdatepage={handleupdatepage} handleclose={()=>setopenmodalupdateincome(false)} dataincome={dataincomeupdate}  />}

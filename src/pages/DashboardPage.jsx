@@ -1,14 +1,13 @@
 import { useEffect, useState,useRef } from "react";
 import styled from "styled-components";
-import { Formaddincome } from "../AddincomeForm";
-import { CardBarchartMonthIncome } from "../BarchartMonthIncomeCard";
-import { CardCurrentValuesMonth } from "../CurrentValueMonthCard";
-import { TableIncomeCard } from "../TableIncomeCard";
+import { Formaddincome } from "../components/AddincomeForm";
 import { Request_lastmonths } from "../infrastructure/request_getincome";
 import { Navbar_IncomeExpenses } from "../components/Navbar_IncomeExpenses";
 import { FormExpense } from "../components/AddexpenseForm";
 import { useValidatelogin } from "../customhooks/ValidateLoginCustomhook";
 import {Request_Nmonthsexpenses } from "../infrastructure/request_expense";
+import { IncomeMetricsLayout } from "../layouts/IncomeMetricsLayout";
+import { ExpensesMetricsLayout } from "../layouts/ExpensesMetricsLayout";
 
 
 const Containermain = styled.section`
@@ -36,12 +35,11 @@ export const  DashboardPage = ()=>
 //loading data
 const isloadingdata = useRef(false);
  const [updatecomponent,setupdatecomponent] =  useState(false);
- const [datacurrentmonth,setdatacurrentmonth] = useState([]);
  const [dataincome,setdataincome] =  useState([]);
  const [dataexpense,setdataexpense] =  useState([]);
  const [ActiveForm,SetActiveForm] = useState("incomes");//this is for switch between income and expenses form
  const {getsessionuser} = useValidatelogin();
- const handleupdatecomponent= ()=>{
+ const handleUpdatecomponent= ()=>{
   setupdatecomponent(!updatecomponent);
  } 
  //update data for edit formaseticomein
@@ -71,20 +69,11 @@ const isloadingdata = useRef(false);
     <Conrow $wrap="wrap">
       <Concol >
          <Navbar_IncomeExpenses handlechangemenu={handlechangemenu}/>
-         {ActiveForm==="incomes" && <Formaddincome updatecomponent={handleupdatecomponent}/>}
+         {ActiveForm==="incomes" && <Formaddincome updatecomponent={handleUpdatecomponent}/>}
          { ActiveForm == "expenses" && <FormExpense/>}
           <Conrow>
-              <Concol>
-                <CardBarchartMonthIncome dataincome={dataincome} /> 
-                <CardCurrentValuesMonth data={dataincome}/>
-                <TableIncomeCard $Sflex={2} Data={dataincome} handleupdatepage={handleupdatecomponent} ></TableIncomeCard> 
-              </Concol>
-              <Concol>
-                <CardBarchartMonthIncome dataincome={dataincome} typestyle={'secondary'}/> 
-                {datacurrentmonth.length>0 ? (<CardCurrentValuesMonth data={datacurrentmonth} typestyle={'secondary'}/> ):null}
-                <TableIncomeCard $Sflex={2} Data={dataincome} typestyle={'secondary'}  ></TableIncomeCard> 
-              </Concol>
-            
+              <IncomeMetricsLayout dataincome={dataincome} handleUpdatecomponent={handleUpdatecomponent}/> 
+              <ExpensesMetricsLayout dataexpenses={dataincome} handleUpdatecomponent={handleUpdatecomponent}/>
           </Conrow>
       </Concol>
       {
