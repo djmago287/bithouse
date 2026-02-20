@@ -1,7 +1,7 @@
 import express from 'express'
 import { dbmysql } from "./config/connectionmysql.js";
 import cors from  'cors';
-import { expenseRouter } from './cuentasporpagar/infrastructure/routerexpense.js';
+import { expenseRouter } from './expenses/infrastructure/routerexpense.js';
 import { backupdbmysqlRouter } from './backupdb/infrastructure/routerbackupmysql.js';
 import { incomeRouter } from './income/infrastructure/routerincome.js';
 

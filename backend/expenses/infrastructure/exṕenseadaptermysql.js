@@ -22,7 +22,7 @@ export class ExpenseAdaptermysql{
     }
     async postexpense(iduser,dataexpense)
     {
-        const SQLQUERY = "Insert into Expense (IdUser,ValueExpense,DescriptionExpense,PaymentmethodExpense,HourExpense,DateExpense,TypeExpense) values(1,10,'this is new','Efectivo','12:50','2021-02-03','gastos')"
+        const SQLQUERY = "Insert into Expense (IdUser,ValueExpense,DescriptionExpense,PaymentmethodExpense,HourExpense,DateExpense,TypeExpense) values(1,10,'this is new','Efectivo','12:50','2021-02-03','gastos')";
     }
     async deleteexpeense(iduser,idexpense)
     {

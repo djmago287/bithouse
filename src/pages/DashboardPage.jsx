@@ -49,6 +49,7 @@ const isloadingdata = useRef(false);
     const dataexpense  =  await Request_Nmonthsexpenses();
     setdataincome(dataincome);
     setdataexpense(dataexpense.data);
+    console.log(dataexpense);
  }
  const handlechangemenu=(menuactive)=>{
     SetActiveForm(menuactive);
@@ -73,7 +74,7 @@ const isloadingdata = useRef(false);
          { ActiveForm == "expenses" && <FormExpense/>}
           <Conrow>
               <IncomeMetricsLayout dataincome={dataincome} handleUpdatecomponent={handleUpdatecomponent}/> 
-              <ExpensesMetricsLayout dataexpenses={dataincome} handleUpdatecomponent={handleUpdatecomponent}/>
+              <ExpensesMetricsLayout dataexpenses={dataexpense} handleUpdatecomponent={handleUpdatecomponent}/>
           </Conrow>
       </Concol>
       {

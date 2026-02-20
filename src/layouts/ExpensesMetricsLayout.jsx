@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { CardBarchartMonth } from "../components/BarchartMonthCard";
-import { CardCurrentValuesMonth } from "../components/CurrentValueMonthCard";
-import { TableIncomeCard } from "../components/TableIncomeCard";
+import { CardBarchartExpenseMonth } from "../components/BarchartMonthExpenseCard";
+import { CardCurrentValuesExpenseMonth } from "../components/CurrentValuesExpenseCard";
+import { TableExpenseCard } from "../components/TableExpenseCard";
 const Container = styled.section`
   display:flex;
   flex-direction:column;
@@ -13,9 +13,10 @@ const Container = styled.section`
 export const ExpensesMetricsLayout= ({dataexpenses,handleUpdatecomponent})=>{
     return (
         <Container>
-            <CardBarchartMonth data={dataexpenses}/>
-            <CardCurrentValuesMonth data={dataexpenses}/>
-            <TableIncomeCard $Sflex={2} Data={dataexpenses} handleupdatepage={handleUpdatecomponent} typestyle={'secondary'} />
+            <CardBarchartExpenseMonth data={dataexpenses} typestyle={'secondary'}/>
+            <CardCurrentValuesExpenseMonth data={dataexpenses} typestyle={'secondary'} />
+            <TableExpenseCard $Sflex={2} Data={dataexpenses} handleupdatepage={handleUpdatecomponent} typestyle={'secondary'}  />
+            
         </Container>
     )
 }

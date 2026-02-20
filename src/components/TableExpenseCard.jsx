@@ -18,7 +18,7 @@ const CardTable = styled.section`
 
 
 
-export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
+export const TableExpenseCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
   const {style,insertstyle} =  useTypestyles({type:typestyle});
   const [openmodalupdateincome,setopenmodalupdateincome] =  useState (false);
   const [dataincomeupdate,setdataincomeupdate] = useState({});//the data update income 
@@ -52,12 +52,12 @@ export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
               Data.slice().reverse().map((item,key)=>(
                 <TableRow key={key} >
                   <TableCell align="right">{key}</TableCell>
-                  <TableCell align="right" >{(item.ValueIncomeM).toFixed(2)
+                  <TableCell align="right" >{(item.ValueExpense).toFixed(2)
                   }</TableCell>
-                  <TableCell align="left">{item.TypeIncomeM}</TableCell>
-                  <TableCell align="left">{item.PaymentmethodIncomeM}</TableCell>
-                  <TableCell align="left">{formatdate(item.DateIncomeM)}</TableCell>
-                  <TableCell align="left" sx={{ overflow:'hidden',whiteSpace:'nowrap',maxWidth:100,textOverflow:'ellipsis'}}>{item.DescriptionIncomeM}</TableCell>
+                  <TableCell align="left">{item.TypeExpense}</TableCell>
+                  <TableCell align="left">{item.PaymentmethodExpense}</TableCell>
+                  <TableCell align="left">{formatdate(item.DateExpense)}</TableCell>
+                  <TableCell align="left" sx={{ overflow:'hidden',whiteSpace:'nowrap',maxWidth:100,textOverflow:'ellipsis'}}>{item.DescriptionExpense}</TableCell>
                   <TableCell align="left" sx={{display:'flex',flexDirection:'row'}}>
                     <IconButton aria-label="Edit" onClick={()=>{
                       setopenmodalupdateincome(true);
@@ -65,7 +65,7 @@ export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
                     }}> 
                       <EditIcon/> 
                     </IconButton>
-                    <IconButton aria-label="Delete" onClick={()=>handledeleteitemIncome(item.IdIncomeM)}>
+                    <IconButton aria-label="Delete" onClick={()=>handledeleteitemIncome(item.IdExpense)}>
                      <DeleteForeverIcon/> 
                     </IconButton>
                   </TableCell>
