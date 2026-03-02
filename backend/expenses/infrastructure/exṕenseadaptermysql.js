@@ -20,9 +20,30 @@ export class ExpenseAdaptermysql{
         const res =  await resultpromise;
         return res;
     }
-    async postexpense(iduser,dataexpense)
+    async postexpense(dataexpense)
     {
-        const SQLQUERY = "Insert into Expense (IdUser,ValueExpense,DescriptionExpense,PaymentmethodExpense,HourExpense,DateExpense,TypeExpense) values(1,10,'this is new','Efectivo','12:50','2021-02-03','gastos')";
+        //1,10,'this is new','Efectivo','12:50','2021-02-03','gastos'
+        const SQLQUERY = "Insert into Expense (IdUser,ValueExpense,DescriptionExpense,PaymentmethodExpense,HourExpense,DateExpense,TypeExpense) values(?,?,?,?,?,?,?)";
+        const values  = [
+            dataexpense._idUser,
+            dataexpense._value,
+            dataexpense._description,
+            dataexpense._paymentmethod,
+            dataexpense._hour,
+            dataexpense._date,
+            dataexpense._type,
+        ]   
+        const insertpromise =  new Promise((resolve,reject)=>{
+            this.db.query(SQLQUERY,values,(err,result)=>{
+                if(err)throw err;
+                if(!err){
+                    console.log("Ok inserted expense in the db.")
+                    resolve({'status':'ok','msg':'Inserted expense correct'})
+                }
+            })
+        })
+        const res = await insertpromise;
+        return res;
     }
     async deleteexpeense(iduser,idexpense)
     {

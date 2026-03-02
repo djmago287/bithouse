@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { text } from 'express'
 import { dbmysql } from "./config/connectionmysql.js";
 import cors from  'cors';
 import { expenseRouter } from './expenses/infrastructure/routerexpense.js';
@@ -113,6 +113,7 @@ app.put('/api/updateIncome/:id',(req,res)=>{
  app.use('/api',expenseRouter)
  //this router is for list backupbackup
  app.use('/backupdb',backupdbmysqlRouter);
+
 //DB.end();
 const server = app.listen(PORT,()=>{
   console.log("El puerto esta corriendo en el port:"+PORT)
