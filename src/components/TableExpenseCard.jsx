@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useTypestyles } from "../customhooks/StylesCustomhook";
 import { UpdateincomeFormModal } from "../components/UpdateincomeFormModal";
 import { UseDateformat } from "../customhooks/DateCustomhook";
-import { Request_deleteincome } from "../infrastructure/request_getincome";
+import { useValidatelogin } from "../customhooks/ValidateLoginCustomhook";
+import { Request_deleteexpense } from "../infrastructure/request_expense";
 import { ToastView, useToast } from "./Toast";
 
 const CardTable = styled.section`
@@ -24,8 +25,9 @@ export const TableExpenseCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
   const [dataincomeupdate,setdataincomeupdate] = useState({});//the data update income 
   const {formatdate} = UseDateformat();
   const toastDeleteincome = useToast();
-  const handledeleteitemIncome =async (id)=>{
-    Request_deleteincome(id);
+  const handledeleteitemIncome =async (idexpense)=>{
+    const user = useValidatelogin();
+    Request_deleteexpense(user.getsessionuser().id,idexpense);
     handleupdatepage();
     toastDeleteincome.inserttoast('Ingreso Eliminado correcto','success');
   }

@@ -18,23 +18,25 @@ export const CardCurrentValuesExpenseMonth = ({data,typestyle})=>{
   const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre",
   "Noviembre","Deciembre"];
   const datecurrent = new Date();  
-  const [totalincome,settotalincome] =  useState(0);
+  const [totalexpense,settotalexpense] =  useState(0);
+ 
   const totalIncomeCurrentMonth = (data)=>{
+    
     let tmptotal = 0;
     data.map((item)=>{
-      const getmonth = new Date(item.ValueExpense).getMonth();
+      const getmonth = new Date(item.DateExpense).getMonth();
       if (getmonth==datecurrent.getMonth()) {
          tmptotal+=item.ValueExpense; 
       }
     })
-    settotalincome(tmptotal);
+    settotalexpense(tmptotal);
   }
   useEffect(()=>{
     totalIncomeCurrentMonth(data);
   },[data]);
   
 return(<ConCard><Typography color="black" textAlign={'center'}>Total ingresos actuales mes {months[datecurrent.getMonth()]} </Typography> 
-  <Typography variant="h4"  color={typestyle?typestyle:'primary'}  textAlign="center">${totalincome.toFixed(2)}</Typography> 
+  <Typography variant="h4"  color={typestyle?typestyle:'primary'}  textAlign="center">${totalexpense.toFixed(2)}</Typography> 
   </ConCard>);
   
 }

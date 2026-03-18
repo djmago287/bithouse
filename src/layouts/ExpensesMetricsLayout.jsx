@@ -11,6 +11,7 @@ const Container = styled.section`
 `;
 
 export const ExpensesMetricsLayout= ({dataexpenses,handleUpdatecomponent})=>{
+   
     return (
         <Container>
             <CardBarchartExpenseMonth data={dataexpenses} typestyle={'secondary'}/>

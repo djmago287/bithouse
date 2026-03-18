@@ -104,7 +104,7 @@ export const Formaddincome = ({updatecomponent})=>{
       error={dataincome.IncomeM.error}
       sx={{flex:1,minWidth:290}}
       label={dataincome.IncomeM.error?'Solo numeros':"incomemoney"}  
-      variant="outlined" ConformUpdateincome
+      variant="outlined"
       value={dataincome.IncomeM.value} 
       onChange={(e)=>{
         //validate if number of string

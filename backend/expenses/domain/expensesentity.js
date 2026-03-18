@@ -27,4 +27,15 @@ export class ExpenseEntity{
             return true
         }
     }
+    //this is validate for data as iduser and idexpense  the expense required
+    validatedeleteExpense()
+    {
+        //_id is idexpense_idUser idusuario
+        if(!this._id || !this._idUser)
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

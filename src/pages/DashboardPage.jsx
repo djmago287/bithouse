@@ -71,7 +71,7 @@ const isloadingdata = useRef(false);
       <Concol >
          <Navbar_IncomeExpenses handlechangemenu={handlechangemenu}/>
          {ActiveForm==="incomes" && <Formaddincome updatecomponent={handleUpdatecomponent}/>}
-         { ActiveForm == "expenses" && <FormExpense/>}
+         { ActiveForm == "expenses" && <FormExpense updatecomponent={handleUpdatecomponent}/>}
           <Conrow>
               <IncomeMetricsLayout dataincome={dataincome} handleUpdatecomponent={handleUpdatecomponent}/> 
               <ExpensesMetricsLayout dataexpenses={dataexpense} handleUpdatecomponent={handleUpdatecomponent}/>

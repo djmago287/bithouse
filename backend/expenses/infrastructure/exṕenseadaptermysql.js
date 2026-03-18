@@ -38,19 +38,41 @@ export class ExpenseAdaptermysql{
                 if(err)throw err;
                 if(!err){
                     console.log("Ok inserted expense in the db.")
-                    resolve({'status':'ok','msg':'Inserted expense correct'})
+                    resolve({'status':'OK','msg':'Inserted expense correct'})
                 }
             })
         })
         const res = await insertpromise;
         return res;
     }
-    async deleteexpeense(iduser,idexpense)
+    async deleteexpeense(dataexpense)
     {
-        const SQLQUERY = "UPDATE Expense SET  ValueExpense = 30,DescriptionExpense = 'this is new', PaymentmethodExpense='card', HourExpense ='02:10', DateExpense = '2015-10-10',TypeExpense='new' where IdExpense=2 AND IdUser = 1;";
+        //idexpense iduser
+        const values = [
+            dataexpense._id,
+            dataexpense._idUser
+        ]
+        const SQLQUERY = "DELETE FROM Expense WHERE IdExpense = ? AND IdUser = ?";
+        const deletepromise =  new Promise((resolve,reject)=>{
+            this.db.query(SQLQUERY,values,(err,result)=>{
+                if(err) throw err;
+                if(!err ){
+                    if(result.affectedRows==0)resolve ({'status':'error','msg':'This data is not delete '}) 
+                    if (result.affectedRows>0) {
+                         console.log(`Ok delete IdExpense ${dataexpense._id} IdUser ${dataexpense._idUser}`);
+                            resolve({'status':'OK','msg':`Delete correct Expense ${dataexpense._id}`})
+                    }
+                   
+                }
+            })
+        })
+        const res =  await deletepromise; //the promise isn´t () because the promise
+        return res
+        
     }
     async updateexpense(IdUser)
     {
-        const SQLQUERY = ""
+        const SQLQUERY = "UPDATE Expense SET  ValueExpense = 30,DescriptionExpense = 'this is new', PaymentmethodExpense='card', HourExpense ='02:10', DateExpense = '2015-10-10',TypeExpense='new' where IdExpense=2 AND IdUser = 1;";
+
     }
 }
