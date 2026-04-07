@@ -70,9 +70,35 @@ export class ExpenseAdaptermysql{
         return res
         
     }
-    async updateexpense(IdUser)
+    async updateexpense(dataexpense)
     {
-        const SQLQUERY = "UPDATE Expense SET  ValueExpense = 30,DescriptionExpense = 'this is new', PaymentmethodExpense='card', HourExpense ='02:10', DateExpense = '2015-10-10',TypeExpense='new' where IdExpense=2 AND IdUser = 1;";
+       
+        const values = [
+            dataexpense._value,
+            dataexpense._description,
+            dataexpense._paymentmethod,
+            dataexpense._hour,
+            dataexpense._date,
+            dataexpense._type,
+            dataexpense._id,
+            dataexpense._idUser,
+        ];
+        const SQLQUERY = "UPDATE Expense SET  ValueExpense = ?,DescriptionExpense = ?, PaymentmethodExpense=?, HourExpense =?, DateExpense = ?,TypeExpense= ?  where IdExpense= ? AND IdUser = ?;";
+
+        const updatepromise = new Promise((resolve,reject)=>{
+            this.db.query(SQLQUERY,values,(err,result)=>{
+                if(err) throw err;
+                if(!err){
+                    if(result.affectedRows == 0) resolve ({'status':'error','msg':'this data is update'});
+                    if(result.affectedRows ==1) {
+                        console.log(`Ok update IdExpense ${dataexpense._id} iduse: ${dataexpense._idUser}`);
+                        resolve({'status':'OK','mshg':`Update Expense correct ${dataexpense._id}`})
+                    }
+                }
+            })
+        })
+        const res =  await updatepromise; //the promise isn´t () because it is promise
+        return res
 
     }
 }

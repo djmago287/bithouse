@@ -31,4 +31,15 @@ export class Expenseapplication{
         const result = await sql.deleteexpeense(expensesentity)
         res.json(result);
     }
+    static async updateexpense(req,res)
+    {
+        const {iduser,idexpense} =  req.params;
+        const {value,description,paymentmethod,date,hour,type} = req.body;
+        const expenseentity =  new ExpenseEntity(value,description,paymentmethod,hour,date,type,iduser);
+        expenseentity._id = idexpense;
+        if(expenseentity.validatedeleteExpense()==false)
+            return res.status(400).json({error:'Todos los campos son obligatorios'});
+        const result =  await sql.updateexpense(expenseentity);
+        res.json(result);
+    }
 }

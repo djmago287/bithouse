@@ -35,7 +35,7 @@ export const CardCurrentValuesExpenseMonth = ({data,typestyle})=>{
     totalIncomeCurrentMonth(data);
   },[data]);
   
-return(<ConCard><Typography color="black" textAlign={'center'}>Total ingresos actuales mes {months[datecurrent.getMonth()]} </Typography> 
+return(<ConCard><Typography color="black" textAlign={'center'}>Total gastos actuales mes {months[datecurrent.getMonth()]} </Typography> 
   <Typography variant="h4"  color={typestyle?typestyle:'primary'}  textAlign="center">${totalexpense.toFixed(2)}</Typography> 
   </ConCard>);
   
