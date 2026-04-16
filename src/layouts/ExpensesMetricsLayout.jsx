@@ -16,8 +16,7 @@ export const ExpensesMetricsLayout= ({dataexpenses,handleUpdatecomponent})=>{
         <Container>
             <CardBarchartExpenseMonth data={dataexpenses} typestyle={'secondary'}/>
             <CardCurrentValuesExpenseMonth data={dataexpenses} typestyle={'secondary'} />
-            <TableExpenseCard $Sflex={2} Data={dataexpenses} handleupdatepage={handleUpdatecomponent} typestyle={'secondary'}  />
-            
+            <TableExpenseCard $Sflex={2} Data={dataexpenses} handleupdatepage={handleUpdatecomponent} typestyle={'secondary'}  />  
         </Container>
     )
 }

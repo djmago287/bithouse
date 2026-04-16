@@ -41,3 +41,26 @@ export const Request_deleteexpense = async (idUser,idexpense) =>{
      const res =  await request.json();
      console.log(res)
 }
+export const Request_updateexpense =  async(idUser,idexpense,value,description,paymentmethod,hour,date,type) =>{
+   
+     const URL=  import.meta.env.VITE_URL_UPDATEEXPENSE+idUser +"/"+ idexpense;
+     const data = {
+          "value":value,
+          "description":description,
+          "paymentmethod":paymentmethod,
+          "date":date,
+          "hour":hour,
+          "type":type
+     }
+     const option = {
+          method : "PUT",
+          headers:{
+               "Content-Type":"application/json"
+          },
+          body:JSON.stringify(data)
+     }
+     const request =  await fetch(URL,option);
+     const res  =  await request.json();
+     console.log(res)
+     //return res;
+}

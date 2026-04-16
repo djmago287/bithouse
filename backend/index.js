@@ -13,6 +13,7 @@ app.use(express.urlencoded({extended:true}))
 const PORT = process.env.PORT ?? 5800;
 const database =  new dbmysql();
 const DB  =  database.DB;
+
 app.get('/api/getIncome',(req,res)=>{
   const SQLQUERY = 'SELECT * FROM IncomeMoney';
   DB.query(SQLQUERY,(err,result)=>{

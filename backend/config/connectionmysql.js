@@ -1,7 +1,7 @@
 import mysql from 'mysql';
 export class dbmysql{
     constructor(){
-        const servidores = [
+        /*const servidores = [
             {
                 host:'192.168.100.12',//local
                 user: 'djmago',
@@ -14,7 +14,7 @@ export class dbmysql{
                 password: 'rasta287',
                 database: 'DBBITHOUSE',
             }
-        ]
+        ]*/
         this.DB = mysql.createConnection(
             {
                 host:'192.168.192.158',

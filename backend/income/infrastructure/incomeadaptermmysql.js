@@ -2,7 +2,8 @@
     export class IncomeAdaptermysql{
         constructor(){
             const database = new dbmysql();
-            this.db = database.DB
+            this.db = database.DB;
+          
         }
         async deleteincome(id){
             const SQLQUERY = 'DELETE FROM IncomeMoney WHERE  idIncomeM = ?';

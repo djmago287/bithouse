@@ -4,11 +4,11 @@ import EditIcon  from "@mui/icons-material/Edit";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
 import { useTypestyles } from "../customhooks/StylesCustomhook";
-import { UpdateincomeFormModal } from "../components/UpdateincomeFormModal";
 import { UseDateformat } from "../customhooks/DateCustomhook";
 import { useValidatelogin } from "../customhooks/ValidateLoginCustomhook";
 import { Request_deleteexpense } from "../infrastructure/request_expense";
 import { ToastView, useToast } from "./Toast";
+import { UpdateexpenseFormModal } from "./UpdateExpenseFormModal";
 
 const CardTable = styled.section`
   background-color:white;
@@ -21,8 +21,8 @@ const CardTable = styled.section`
 
 export const TableExpenseCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
   const {style,insertstyle} =  useTypestyles({type:typestyle});
-  const [openmodalupdateincome,setopenmodalupdateincome] =  useState (false);
-  const [dataincomeupdate,setdataincomeupdate] = useState({});//the data update income 
+  const [openmodalupdateexpense,setopenmodalupdateexpense] =  useState (false);
+  const [dataexpenseupdate,setdataexpenseupdate] = useState({});//the data update income 
   const {formatdate} = UseDateformat();
   const toastDeleteincome = useToast();
   const handledeleteitemIncome =async (idexpense)=>{
@@ -42,8 +42,8 @@ export const TableExpenseCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
             <TableRow>
               <TableCell sx={{color:'white'}}>N°</TableCell>
               <TableCell sx={{color:'white'}}>Monto</TableCell>
-              <TableCell sx={{color:'white'}}>Tipo ingreso</TableCell>
-              <TableCell sx={{color:'white'}}>Tipo pago </TableCell>
+              <TableCell sx={{color:'white'}}>Tipo gastos</TableCell>
+              <TableCell sx={{color:'white'}}>Metodo pago  </TableCell>
               <TableCell sx={{color:'white'}}>Fecha</TableCell>
               <TableCell sx={{color:'white'}}>Descripcion</TableCell>
               <TableCell sx={{color:'white'}}>Option</TableCell>
@@ -62,8 +62,8 @@ export const TableExpenseCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
                   <TableCell align="left" sx={{ overflow:'hidden',whiteSpace:'nowrap',maxWidth:100,textOverflow:'ellipsis'}}>{item.DescriptionExpense}</TableCell>
                   <TableCell align="left" sx={{display:'flex',flexDirection:'row'}}>
                     <IconButton aria-label="Edit" onClick={()=>{
-                      setopenmodalupdateincome(true);
-                      setdataincomeupdate(item)
+                      setopenmodalupdateexpense(true);
+                      setdataexpenseupdate(item)
                     }}> 
                       <EditIcon/> 
                     </IconButton>
@@ -78,9 +78,9 @@ export const TableExpenseCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
         </Table>
       </TableContainer>
       <ToastView toasts={toastDeleteincome.listtoasts} />
-      {////the handleupdatecomponent is to update the data after close the modal
+      {////the handleupdatecomponent is to update the data after close the modal 
       }
-      {openmodalupdateincome &&<UpdateincomeFormModal handleupdatepage={handleupdatepage} handleclose={()=>setopenmodalupdateincome(false)} dataincome={dataincomeupdate}  />}
+      {openmodalupdateexpense &&<UpdateexpenseFormModal handleclose={()=>setopenmodalupdateexpense(false)} dataexpense={dataexpenseupdate} handleupdatepage={handleupdatepage} />}
       
     </CardTable>
   );
