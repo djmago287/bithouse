@@ -27,10 +27,8 @@ export const LoginPage = ()=>{
   const handleLogin =  async(e)=>{
   e.preventDefault();
   const Result =  await Request_login(user.Name,user.Password);
- 
   if (Result.status == "OK") {
-    
-    setsessionuser(Result.data[0].IdUser,"juan","1234");
+    setsessionuser(Result.data[0].IdUser,user.Name,user.Password);
     //navigate('/',{replace:true});
     window.location.href = urlhome;
   }else{

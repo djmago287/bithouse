@@ -100,10 +100,14 @@ app.put('/api/updateIncome/:id',(req,res)=>{
      if (err) {
       throw err;
      }else{
-       console.log("Login for user is correct");
-       result.length==0?
-         res.json({status:"error",msg:"no existe usuario"}):
-         res.json( {status:"OK", msg:"Correct login client",data:result});
+       //console.log("Login for user is correct");
+       if (result.length==0) {
+        console.log("Error Peticion de login.");
+        res.json({status:"error",msg:"No existe usuario"}) ;
+       }else{
+        console.log("Correct Peticion de login.");
+        res.json( {status:"OK", msg:"Correct login client",data:result});
+       }
        
      }
   
