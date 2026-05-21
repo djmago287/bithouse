@@ -41,6 +41,7 @@ export const UpdateexpenseFormModal =({handleclose,dataexpense,handleupdatepage}
 const {formatdate} = UseDateformat();
 const [validateupdateexpense, setvalidateupdateexpense]  = useState(true);
 const toast =  useToast();
+const user = useValidatelogin();
 const [updateexpense,setupdateexpense] = useState({
     IdExpense:{
         value:dataexpense.IdExpense
@@ -70,7 +71,7 @@ const [updateexpense,setupdateexpense] = useState({
         error:false
     }
 })
-const  Handlevalidateexpense = ()=>{
+const  handlevalidateexpense = ()=>{
     if (updateexpense.ValueExpense.error ||
             updateexpense.DescriptionExpense.error || 
             updateexpense.TypeExpense.error ||
@@ -84,9 +85,9 @@ const  Handlevalidateexpense = ()=>{
             return true;
         }
 }
-const Handleupdateexpense =  async()=>{
-    if(!Handlevalidateexpense())return;
-    const user = useValidatelogin();
+const handleupdateexpense =  async()=>{
+    if(!handlevalidateexpense())return;
+    
     //call to the api to update expense
     await Request_updateexpense(
         user.getsessionuser().id,
@@ -175,7 +176,7 @@ const Handleupdateexpense =  async()=>{
                             type="submit"
                             variant="contained"
                             color={validateupdateexpense?"primary":"error"} 
-                            onClick={()=>Handleupdateexpense()}
+                            onClick={()=>handleupdateexpense()}
                         >
                             {validateupdateexpense?"Actualizar Ingreso":"Datos Invalidos"}
                         </Button>
