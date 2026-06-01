@@ -1,6 +1,6 @@
-export const Request_Nmonthsexpenses = async ()=>{
+export const Request_Nmonthsexpenses = async (idUser,n_month)=>{
      //realizar modificacion
-     const URL = import.meta.env.VITE_URL_GETEXPENSECURRENTMONTHS+"1/2";
+     const URL = import.meta.env.VITE_URL_GETEXPENSECURRENTMONTHS+idUser+"/"+n_month;
      const request = await fetch(URL);
      const res = await request.json();//transform a json
      return res;

@@ -30,6 +30,7 @@ export const CardBarchartMonth = ({data,typestyle})=>{
       }
       listmonthsincome[getMonth]+=parseFloat(item.ValueIncomeM);
     })
+    
     setfivemonths({
       name:Object.keys(listmonthsincome),//[Enero,Febrero]
       totales:Object.values(listmonthsincome)}//[123,123]
@@ -55,7 +56,7 @@ export const CardBarchartMonth = ({data,typestyle})=>{
 return(
  <ConCard>  
     <BarChart
-      xAxis={[{ data: fivemonths.name }]}
+      xAxis={[{scaleType: 'band', data: fivemonths.name }]}
       series={[{ data: fivemonths.totales, color:style }]}
       {...chartSetting}
     />
