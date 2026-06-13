@@ -30,7 +30,7 @@ export const CardBarchartMonth = ({data,typestyle})=>{
       }
       listmonthsincome[getMonth]+=parseFloat(item.ValueIncomeM);
     })
-    
+    console.log(listmonthsincome)
     setfivemonths({
       name:Object.keys(listmonthsincome),//[Enero,Febrero]
       totales:Object.values(listmonthsincome)}//[123,123]
@@ -44,11 +44,12 @@ export const CardBarchartMonth = ({data,typestyle})=>{
         width: 50,
       },
     ],
-    height: 297,
+    height:297,
   };
  useEffect(()=>{
   //insertstyle
    insertstyle();
+   
    //console.log(dataincome);
    totalesIncomeMonth(data);//#9c27b0;
  },[data]);
@@ -56,7 +57,7 @@ export const CardBarchartMonth = ({data,typestyle})=>{
 return(
  <ConCard>  
     <BarChart
-      xAxis={[{scaleType: 'band', data: fivemonths.name }]}
+      xAxis={[{scaleType: 'band', data: fivemonths.name,disableTicks: true }]}
       series={[{ data: fivemonths.totales, color:style }]}
       {...chartSetting}
     />

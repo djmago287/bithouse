@@ -8,6 +8,7 @@ import { useValidatelogin } from "../customhooks/ValidateLoginCustomhook";
 import {Request_Nmonthsexpenses } from "../infrastructure/request_expense";
 import { IncomeMetricsLayout } from "../layouts/IncomeMetricsLayout";
 import { ExpensesMetricsLayout } from "../layouts/ExpensesMetricsLayout";
+import { SummaryCard } from "../components/SummaryCard";
 
 
 const Containermain = styled.section`
@@ -71,8 +72,9 @@ const isloadingdata = useRef(false);
       <Concol >
          <Navbar_IncomeExpenses handlechangemenu={handlechangemenu}/>
          {ActiveForm==="incomes" && <Formaddincome updatecomponent={handleUpdatecomponent}/>}
-         { ActiveForm == "expenses" && <FormExpense updatecomponent={handleUpdatecomponent}/>}
-          <Conrow>
+          { ActiveForm == "expenses" && <FormExpense updatecomponent={handleUpdatecomponent}/>}
+           <SummaryCard dataincome={dataincome} dataexpense={dataexpense} />
+           <Conrow>
               <IncomeMetricsLayout dataincome={dataincome} handleUpdatecomponent={handleUpdatecomponent}/> 
               <ExpensesMetricsLayout dataexpenses={dataexpense} handleUpdatecomponent={handleUpdatecomponent}/>
           </Conrow>

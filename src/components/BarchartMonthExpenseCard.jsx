@@ -8,8 +8,9 @@ const ConCard = styled.section`
  background-color:white;
  flex:1;
  border-radius:4px;
-    max-height: 297px;
+  
 `;
+//max-height: 297px;
 //this is show total in the current month.
 export const CardBarchartExpenseMonth = ({data,typestyle})=>{
   const {style,insertstyle} =  useTypestyles({type:typestyle});
@@ -56,7 +57,7 @@ export const CardBarchartExpenseMonth = ({data,typestyle})=>{
 return(
  <ConCard>  
     <BarChart
-      xAxis={[{ data: fivemonths.name }]}
+      xAxis={[{ scaleType:'band',data: fivemonths.name }]}
       series={[{ data: fivemonths.totales, color:style }]}
       {...chartSetting}
     />
