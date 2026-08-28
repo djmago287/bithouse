@@ -54,7 +54,7 @@ export const TableExpenseCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
               Data.slice().reverse().map((item,key)=>(
                 <TableRow key={key} >
                   <TableCell align="right">{key}</TableCell>
-                  <TableCell align="right" >{(item.ValueExpense).toFixed(2)
+                  <TableCell align="right" >{parseFloat(item.ValueExpense).toFixed(2)
                   }</TableCell>
                   <TableCell align="left">{item.TypeExpense}</TableCell>
                   <TableCell align="left">{item.PaymentmethodExpense}</TableCell>

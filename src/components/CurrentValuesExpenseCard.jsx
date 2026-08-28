@@ -26,7 +26,7 @@ export const CardCurrentValuesExpenseMonth = ({data,typestyle})=>{
     data.map((item)=>{
       const getmonth = new Date(item.DateExpense).getMonth();
       if (getmonth==datecurrent.getMonth()) {
-         tmptotal+=item.ValueExpense; 
+         tmptotal+=parseFloat(item.ValueExpense); 
       }
     })
     settotalexpense(tmptotal);

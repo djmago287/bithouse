@@ -108,7 +108,7 @@ export const Formaddincome = ({updatecomponent})=>{
       value={dataincome.IncomeM.value} 
       onChange={(e)=>{
         //validate if number of string
-        /^\d+$/.test(e.target.value)?
+        /^\d*\.?\d*$/.test(e.target.value)?
         setdataincome({...dataincome,IncomeM:{value:e.target.value, error:false}}):
         setdataincome({...dataincome,IncomeM:{value:e.target.value, error:true}})
       }} />

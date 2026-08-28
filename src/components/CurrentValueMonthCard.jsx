@@ -23,9 +23,11 @@ export const CardCurrentValuesMonth = ({data,typestyle})=>{
     data.map((item)=>{
       const getmonth = new Date(item.DateIncomeM).getMonth();
       if (getmonth==datecurrent.getMonth()) {
-         tmptotal+=item.ValueIncomeM; 
+      
+         tmptotal+= parseFloat(item.ValueIncomeM); 
       }
     })
+      console.log( tmptotal);
     settotalincome(tmptotal);
   }
   useEffect(()=>{

@@ -85,7 +85,7 @@ export const FormExpense = ({updatecomponent})=>{
               sx={{flex:1,minWidth:290}} 
               onChange={(e)=>{
                 //validate if number of string
-                /^\d+$/.test(e.target.value)?
+                /^\d*\.?\d*$/.test(e.target.value)?
                 setformexpense({...formexpense,ValueExpense:{value:e.target.value, error:false}}):
                 setformexpense({...formexpense,ValueExpense:{value:e.target.value,error:true}})
               }}

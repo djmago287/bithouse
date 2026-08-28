@@ -52,7 +52,7 @@ export const TableIncomeCard = ({Sflex, Data,typestyle,handleupdatepage})=>{
               Data.slice().reverse().map((item,key)=>(
                 <TableRow key={key} >
                   <TableCell align="right">{key}</TableCell>
-                  <TableCell align="right" >{(item.ValueIncomeM).toFixed(2)
+                  <TableCell align="right" >{parseFloat(item.ValueIncomeM).toFixed(2)
                   }</TableCell>
                   <TableCell align="left">{item.TypeIncomeM}</TableCell>
                   <TableCell align="left">{item.PaymentmethodIncomeM}</TableCell>
