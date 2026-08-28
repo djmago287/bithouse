@@ -17,9 +17,9 @@ export class dbmysql{
         ]*/
         this.DB = mysql.createConnection(
             {
-                host:'192.168.192.158',
-                user: 'djmago',
-                password: 'rasta287',
+                host:'192.168.100.12',//192.168.192.158
+                user: 'magobit',
+                password: 'Rasta2877858@',
                 database: 'DBBITHOUSE',
             }
         );
