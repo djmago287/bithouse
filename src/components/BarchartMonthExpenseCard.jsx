@@ -57,7 +57,7 @@ export const CardBarchartExpenseMonth = ({data,typestyle})=>{
 return(
  <ConCard>  
     <BarChart
-      xAxis={[{ scaleType:'band',data: fivemonths.name }]}
+      xAxis={[{ scaleType:'band',data: fivemonths.name,disableTicks: true  }]}
       series={[{ data: fivemonths.totales, color:style }]}
       {...chartSetting}
     />

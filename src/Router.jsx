@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, redirect, Route, Routes } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage";
 import { DashboardPage } from "./pages/DashboardPage";
+import { BackupPage } from "./pages/BackupPage";
 import { useState } from "react";
 import { useValidatelogin } from "./customhooks/ValidateLoginCustomhook";
 //the main router
@@ -13,6 +14,7 @@ export const RouterMain = ()=>
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage/>} /> 
+        <Route path="/backup" element={validatelogin?<BackupPage/>:<Navigate to="/login" replace/>}/>
         <Route path="/" element={validatelogin?<DashboardPage/>:<Navigate to="/login" replace/>}/>
         <Route path="*" element={<Navigate to="/login" replace/>}/> 
       </Routes>
